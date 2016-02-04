@@ -17,9 +17,9 @@ require 'config/environment'
 logger.info "Booted"
 
 classes_to_index = if ARGV.include?("--detailed")
-  Whitehall.searchable_classes_for_detailed_guides_index
-else
-  Whitehall.searchable_classes_for_government_index
+                     Whitehall.searchable_classes_for_detailed_guides_index
+                   else
+                     Whitehall.searchable_classes_for_government_index
 end
 
 id_groups = []
@@ -34,16 +34,16 @@ def export_classes(classes_to_index, id_groups, &block)
     export_directory = Pathname.new(export_directory).expand_path
 
     if export_directory.exist? && export_directory.children.any?
-      puts "#{ENV["EXPORT_DIRECTORY"]} exists and is not empty, aborting"
+      puts "#{ENV['EXPORT_DIRECTORY']} exists and is not empty, aborting"
       exit
     else
-      puts "Starting export of #{id_groups.count} files to #{ENV["EXPORT_DIRECTORY"]}"
+      puts "Starting export of #{id_groups.count} files to #{ENV['EXPORT_DIRECTORY']}"
     end
 
     export_directory.mkpath
 
     Parallel.each_with_index(id_groups) do |(klass, id_group), index|
-      file_path = export_directory+"#{klass.name.downcase}-#{index}.esdump"
+      file_path = export_directory + "#{klass.name.downcase}-#{index}.esdump"
       logger.info "Exporting #{klass.name.downcase}-#{index}.esdump"
       File.open(file_path.to_s, "w") do |output|
         block.call(klass, output, id_group)
@@ -71,7 +71,7 @@ def output_es_line(obj, output)
     end
   end
 
-  output.puts %Q[{"index": {"_type": "edition", "_id": "#{search_index['link']}"}}]
+  output.puts %[{"index": {"_type": "edition", "_id": "#{search_index['link']}"}}]
   output.puts search_index.to_json
 end
 
@@ -80,9 +80,7 @@ export_classes(classes_to_index, id_groups) do |klass, output, id_group|
 
   eager_loads = [:document, :organisations, :attachments, :world_locations]
   eager_loads.each do |sym|
-    if klass.reflect_on_association(sym)
-      association = association.includes(sym)
-    end
+    association = association.includes(sym) if klass.reflect_on_association(sym)
   end
 
   if id_group
