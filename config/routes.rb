@@ -219,7 +219,7 @@ Whitehall::Application.routes.draw do
           resources :classification_featurings, path: "featurings" do
             put :order, on: :collection
           end
-        resources :offsite_links
+          resources :offsite_links
         end
         resources :topical_events, path: "topical-events" do
           resource :about_pages, path: 'about'
@@ -341,7 +341,6 @@ Whitehall::Application.routes.draw do
           resources :offsite_links
         end
         resources :feature_lists, only: [:show] do
-
           post :reorder, on: :member
 
           resources :features, only: [:new, :create] do
@@ -349,9 +348,7 @@ Whitehall::Application.routes.draw do
           end
         end
         resources :case_studies, path: "case-studies", except: [:index]
-        if Rails.env.test?
-          resources :generic_editions, path: "generic-editions"
-        end
+        resources :generic_editions, path: "generic-editions" if Rails.env.test?
 
         resources :governments, except: [:destroy] do
           member do

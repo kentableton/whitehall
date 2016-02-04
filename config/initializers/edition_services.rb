@@ -1,13 +1,13 @@
 Whitehall.edition_services.tap do |es|
-  es.subscribe(/^(force_publish|publish)$/)                   { |event, edition, options| ServiceListeners::AuthorNotifier.new(edition, options[:user]).notify! }
-  es.subscribe(/^(force_publish|publish|unpublish|withdraw)$/) { |event, edition, options| ServiceListeners::EditorialRemarker.new(edition, options[:user], options[:remark]).save_remark! }
-  es.subscribe(/^(force_publish|publish)$/)                   { |event, edition, options| Whitehall::GovUkDelivery::Notifier.new(edition).edition_published! }
+  es.subscribe(/^(force_publish|publish)$/) { |_event, edition, options| ServiceListeners::AuthorNotifier.new(edition, options[:user]).notify! }
+  es.subscribe(/^(force_publish|publish|unpublish|withdraw)$/) { |_event, edition, options| ServiceListeners::EditorialRemarker.new(edition, options[:user], options[:remark]).save_remark! }
+  es.subscribe(/^(force_publish|publish)$/) { |_event, edition, _options| Whitehall::GovUkDelivery::Notifier.new(edition).edition_published! }
   es.subscribe(/^(force_publish|publish|unpublish|withdraw)$/) { |_, edition, _| ServiceListeners::PanopticonRegistrar.new(edition).register! }
-  es.subscribe(/^(force_publish|publish)$/)                   { |_, edition, _| ServiceListeners::AnnouncementClearer.new(edition).clear! }
+  es.subscribe(/^(force_publish|publish)$/) { |_, edition, _| ServiceListeners::AnnouncementClearer.new(edition).clear! }
 
   # search
-  es.subscribe(/^(force_publish|publish)$/) { |event, edition, options| ServiceListeners::SearchIndexer.new(edition).index! }
-  es.subscribe("unpublish")                 { |event, edition, options| ServiceListeners::SearchIndexer.new(edition).remove! }
+  es.subscribe(/^(force_publish|publish)$/) { |_event, edition, _options| ServiceListeners::SearchIndexer.new(edition).index! }
+  es.subscribe("unpublish")                 { |_event, edition, _options| ServiceListeners::SearchIndexer.new(edition).remove! }
 
   # publishing API
   es.subscribe(/^(force_publish|publish)$/)   { |_, edition, _| Whitehall::PublishingApi.publish_async(edition) }
