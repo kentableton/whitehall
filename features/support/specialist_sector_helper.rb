@@ -49,7 +49,7 @@ module SpecialistSectorHelper
     create(:published_publication, :guidance,
             primary_specialist_sector_tag: 'oil-and-gas/wells',
             secondary_specialist_sector_tags: ['oil-and-gas/offshore', 'oil-and-gas/fields']
-    )
+          )
   end
 
   def check_for_primary_sector_in_heading

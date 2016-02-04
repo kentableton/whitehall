@@ -240,7 +240,7 @@ Then(/^I should see the ministerial departments including their sub\-organisatio
     within "#organisation_#{@ministerial_department.id}" do
       assert page.has_link?(@child_org_1.name, href: organisation_path(@child_org_1))
     end
-    org_count =  Organisation.where(organisation_type_key: :ministerial_department, govuk_status: 'live').count
+    org_count = Organisation.where(organisation_type_key: :ministerial_department, govuk_status: 'live').count
     within "header" do
       assert page.has_content? org_count
     end
@@ -254,7 +254,7 @@ Then(/^I should see the non ministerial departments including their sub\-organis
     within "#organisation_#{@non_ministerial_department_2.id}" do
       assert page.has_link?(@child_org_2.name, href: organisation_path(@child_org_2))
     end
-    org_count =  Organisation.where(organisation_type_key: [:non_ministerial_department, :sub_organisation], govuk_status: 'live').count
+    org_count = Organisation.where(organisation_type_key: [:non_ministerial_department, :sub_organisation], govuk_status: 'live').count
     within "header" do
       assert page.has_content? org_count
     end
@@ -272,7 +272,7 @@ Then(/^I should see the agencies and government bodies listed with count$/) do
     assert page.has_link?(@other_organisation.name, href: organisation_path(@other_organisation))
     assert page.has_link?(@child_org_1.name, href: organisation_path(@child_org_1))
     assert page.has_link?(@child_org_2.name, href: organisation_path(@child_org_2))
-    org_count =  Organisation.where(organisation_type_key: OrganisationType::agencies_and_public_bodies.keys, govuk_status: 'live').count
+    org_count = Organisation.where(organisation_type_key: OrganisationType::agencies_and_public_bodies.keys, govuk_status: 'live').count
     within "header" do
       assert page.has_content? org_count
     end
@@ -282,7 +282,7 @@ end
 Then(/^I should see the public corporations listed with count$/) do
   within "#public-corporations" do
     assert page.has_link?(@public_corporation.name, href: organisation_path(@public_corporation))
-    org_count =  Organisation.where(organisation_type_key: :public_corporation, govuk_status: 'live').count
+    org_count = Organisation.where(organisation_type_key: :public_corporation, govuk_status: 'live').count
     within "header" do
       assert page.has_content? org_count
     end
@@ -292,7 +292,7 @@ end
 Then(/^I should see the devolved administrations listed with count$/) do
   within "#devolved-administrations" do
     assert page.has_link?(@devolved_administration.name, href: organisation_path(@devolved_administration))
-    org_count =  Organisation.where(organisation_type_key: :devolved_administration).count
+    org_count = Organisation.where(organisation_type_key: :devolved_administration).count
     within "header" do
       assert page.has_content? org_count
     end
@@ -302,7 +302,7 @@ end
 Then(/^I should see the high profile groups listed with count$/) do
   within "#high-profile-groups" do
     assert page.has_link?(@sub_organisation.name, href: organisation_path(@sub_organisation))
-    org_count =  Organisation.where(organisation_type_key: :sub_organisation, govuk_status: 'live').count
+    org_count = Organisation.where(organisation_type_key: :sub_organisation, govuk_status: 'live').count
     within "header" do
       assert page.has_content? org_count
     end
@@ -355,7 +355,7 @@ Then /^I should be able to view all chief professional officers for the "([^"]*)
   end
 end
 
-Then /^I should see the featured (news articles|topical events|offsite links) in the "([^"]*)" organisation are:$/ do |type, name, expected_table|
+Then /^I should see the featured (news articles|topical events|offsite links) in the "([^"]*)" organisation are:$/ do |_type, name, expected_table|
   visit_organisation name
   rows = find(featured_documents_selector).all('.feature')
   table = rows.collect do |row|

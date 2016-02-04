@@ -24,7 +24,7 @@ And another! How rare.
 
 You were expecting something a bit more tabloid? Shame on you.
 EOS
-)
+        )
 end
 
 When /^I view the detailed guide$/ do
@@ -37,7 +37,7 @@ Then /^I should see all pages of the detailed guide$/ do
     first: 'page-1',
     second: 'page-2',
     third: 'page-3'
-  }.each do |page_name, page_id|
+  }.each do |_page_name, page_id|
     assert page.find("h2##{page_id}").visible?, "Element h2##{page_id} is not visible"
   end
 end

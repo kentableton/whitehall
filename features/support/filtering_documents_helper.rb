@@ -1,5 +1,4 @@
 module FilteringDocumentsHelper
-
   def assert_listed_document_count(expected_number)
     selector = 'ol.document-list li.document-row'
 
@@ -8,17 +7,13 @@ module FilteringDocumentsHelper
   end
 
   def select_filter(label, value, opts = {})
-    if opts[:and_clear_others]
-      clear_filters
-    end
+    clear_filters if opts[:and_clear_others]
     page.select value, from: label
     page.click_on "Refresh results"
   end
 
   def fill_in_filter(label, value, opts = {})
-    if opts[:and_clear_others]
-      clear_filters
-    end
+    clear_filters if opts[:and_clear_others]
     page.fill_in label, with: value
     page.click_on "Refresh results"
   end

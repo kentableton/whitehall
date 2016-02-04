@@ -6,11 +6,11 @@ Given /^I am viewing a world location that is translated$/ do
     world_locations: [world_location],
     name: "en-organisation",
     translated_into: {fr: {name: "fr-organisation"}}
-  )
+                                 )
   create(:about_corporate_information_page, organisation: nil,
          worldwide_organisation: worldwide_organisation,  summary: "en-summary",
          translated_into: {fr: {summary: "fr-summary"}}
-  )
+        )
   visit world_location_path(world_location)
   click_link "Français"
 end

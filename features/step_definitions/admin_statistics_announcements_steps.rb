@@ -25,7 +25,7 @@ end
 
 
 Given(/^there are statistics announcements by my organisation that are unlinked to a publication$/) do
-  @past_announcement    = create(:statistics_announcement,
+  @past_announcement = create(:statistics_announcement,
                             organisation_ids: [@user.organisation.id],
                             current_release_date: create(:statistics_announcement_date, release_date: 1.day.ago))
 

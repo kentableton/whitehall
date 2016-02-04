@@ -1,5 +1,5 @@
 Given(/^a draft document with broken links exists$/) do
-  @broken_link   = 'http://broken-link.com/404'
+  @broken_link = 'http://broken-link.com/404'
   @working_link = 'http://example.com/some/page'
   stub_request(:get, @broken_link).to_return(status: 404)
   stub_request(:get, @working_link).to_return(status: 200)

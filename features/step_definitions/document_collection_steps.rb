@@ -11,7 +11,7 @@ Given(/^a published publication called "(.*?)" in the document collection "(.*?)
   @document_collection = create(:published_document_collection,
     title: collection_title,
     groups: [build(:document_collection_group, documents: [@publication.document])]
-  )
+                               )
   @group = @document_collection.groups.first
 end
 
@@ -47,7 +47,7 @@ When(/^I move "(.*?)" before "(.*?)" in the document collection$/) do |doc_title
   click_on "Collection documents"
 
   #Simulate drag-droping document.
-  page.execute_script %Q{
+  page.execute_script %{
     (function($) {
       var doc_1_li = $('.document-list li:contains(#{doc_title_1})');
       if(doc_1_li.length == 0) throw("Couldn't find li for document '#{doc_title_1}' in .document-list.");
@@ -101,7 +101,7 @@ Given(/^a published publication called "(.*?)" in a published document collectio
   @publication = create(:published_publication, title: publication_title)
   @document_collection = create(:published_document_collection,
     groups: [build(:document_collection_group, documents: [@publication.document])]
-  )
+                               )
   @group = @document_collection.groups.first
 end
 

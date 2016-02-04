@@ -44,7 +44,6 @@ Given /^a published (publication|news article|consultation) "([^"]*)" exists rel
 end
 
 Given /^a published (publication|news article|consultation) "([^"]*)" exists relating to the (?:world location|international delegation) "([^"]*)" produced (\d+) days ago$/ do |document_type, title, world_location_name, days_ago|
-
   world_location = WorldLocation.find_by!(name: world_location_name)
   create("published_#{document_class(document_type).name.underscore}".to_sym, title: title, first_published_at: days_ago.to_i.days.ago, world_locations: [world_location])
 end
@@ -84,7 +83,7 @@ Given /^a force published (document|publication|news article|consultation|speech
   publish(force: true)
 end
 
-When /^I view the (publication|news article|consultation|speech|document) "([^"]*)"$/ do |document_type, title|
+When /^I view the (publication|news article|consultation|speech|document) "([^"]*)"$/ do |_document_type, title|
   click_link title
 end
 
@@ -162,11 +161,11 @@ When /^I force publish (#{THE_DOCUMENT})$/ do |edition|
   publish(force: true)
 end
 
-When /^I save my changes to the (publication|news article|consultation|speech)$/ do |document_type|
+When /^I save my changes to the (publication|news article|consultation|speech)$/ do |_document_type|
   click_button "Save"
 end
 
-When /^I edit the (publication|news article|consultation) changing the title to "([^"]*)"$/ do |document_type, new_title|
+When /^I edit the (publication|news article|consultation) changing the title to "([^"]*)"$/ do |_document_type, new_title|
   fill_in "Title", with: new_title
   click_button "Save"
 end
@@ -242,7 +241,7 @@ Then /^I should see in the preview that "([^"]*)" should related to "([^"]*)" an
   assert has_content?(related_priority_2)
 end
 
-Then /^I should see the conflict between the (publication|policy|news article|consultation|speech) titles "([^"]*)" and "([^"]*)"$/ do |document_type, new_title, latest_title|
+Then /^I should see the conflict between the (publication|policy|news article|consultation|speech) titles "([^"]*)" and "([^"]*)"$/ do |_document_type, new_title, latest_title|
   assert_equal new_title, find(".conflicting.new #edition_title").value
   assert page.has_css?(".conflicting.latest .document .title", text: latest_title)
 end
@@ -263,7 +262,7 @@ Then /^my attempt to save it should fail with error "([^"]*)"/ do |error_message
 end
 
 When(/^I am on the edit page for (.*?) "(.*?)"$/) do |document_type, title|
-  document_type = document_type.gsub(' ', '_')
+  document_type = document_type.tr(' ', '_')
   document = document_type.classify.constantize.find_by(title: title)
   visit send("edit_admin_#{document_type}_path", document)
 end
