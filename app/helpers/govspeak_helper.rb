@@ -52,7 +52,7 @@ module GovspeakHelper
     content_tag(:ol, class: ('unnumbered' if attachment.manually_numbered_headings?)) do
       html_attachment_govspeak_headers(attachment).reduce('') do |html, header|
         css_class = header_contains_manual_numbering?(header) ? 'numbered' : nil
-        html << content_tag(:li ,link_to(header.text, "##{header.id}"), class: css_class)
+        html << content_tag(:li, link_to(header.text, "##{header.id}"), class: css_class)
       end.html_safe
     end
   end
@@ -84,8 +84,8 @@ module GovspeakHelper
 
   def inline_attachment_code_tags(number)
     content_tag(:code, "!@#{number}") <<
-    ' or '.html_safe <<
-    content_tag(:code, "[InlineAttachment:#{number}]")
+      ' or '.html_safe <<
+      content_tag(:code, "[InlineAttachment:#{number}]")
   end
 
   def fraction_image(numerator, denominator)
@@ -100,7 +100,7 @@ module GovspeakHelper
     { heading_numbering: numbering_method, contact_heading_tag: 'h4' }
   end
 
-  private
+private
 
   def remove_extra_quotes_from_blockquotes(govspeak)
     Whitehall::ExtraQuoteRemover.new.remove(govspeak)
@@ -144,7 +144,7 @@ module GovspeakHelper
 
   def render_embedded_fractions(govspeak)
     return govspeak if govspeak.blank?
-    govspeak.gsub(GovspeakHelper::FRACTION_REGEXP) do |match|
+    govspeak.gsub(GovspeakHelper::FRACTION_REGEXP) do |_match|
       if $1.present? && $2.present?
         render(partial: 'shared/govspeak_fractions', formats: [:html], locals: { numerator: $1, denominator: $2 })
       else
@@ -190,7 +190,8 @@ module GovspeakHelper
   end
 
   def add_heading_numbers(nokogiri_doc)
-    h2_depth, h3_depth = 0, 0
+    h2_depth = 0
+    h3_depth = 0
     nokogiri_doc.css('h2, h3').each do |el|
       if el.name == 'h2'
         h3_depth = 0

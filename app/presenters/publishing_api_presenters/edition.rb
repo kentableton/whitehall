@@ -18,6 +18,7 @@ module PublishingApiPresenters
     end
 
   private
+
     def rendering_app
       item.rendering_app
     end

@@ -25,10 +25,11 @@ class MinisterSorter
   end
 
 private
+
   def expanded_roles_and_people
-    @roles.map { |role|
+    @roles.flat_map { |role|
       role.current_people.map { |person| [role, person] }
-    }.flatten(1)
+    }
   end
 
   def roles_by_person

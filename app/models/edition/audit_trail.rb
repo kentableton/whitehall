@@ -6,7 +6,8 @@ module Edition::AuditTrail
   end
 
   def self.acting_as(actor)
-    original_actor, Edition::AuditTrail.whodunnit = Edition::AuditTrail.whodunnit, actor
+    original_actor = Edition::AuditTrail.whodunnit
+    Edition::AuditTrail.whodunnit = actor
     yield
   ensure
     Edition::AuditTrail.whodunnit = original_actor
@@ -92,7 +93,7 @@ module Edition::AuditTrail
   end
 
   def publication_audit_entry
-    document_version_trail.detect { | audit_entry | audit_entry.version.state == 'published' }
+    document_version_trail.detect { |audit_entry| audit_entry.version.state == 'published' }
   end
 
   class AuditEntry
@@ -114,9 +115,9 @@ module Edition::AuditTrail
 
     def ==(other)
       other.class == self.class &&
-      other.edition_serial_number == edition_serial_number &&
-      other.edition == edition &&
-      other.object == object
+        other.edition_serial_number == edition_serial_number &&
+        other.edition == edition &&
+        other.object == object
     end
 
     def first_edition?

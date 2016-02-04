@@ -53,9 +53,9 @@ class AttachmentData < ActiveRecord::Base
   end
 
   def virus_status
-    if File.exists?(infected_path)
+    if File.exist?(infected_path)
       :infected
-    elsif File.exists?(clean_path)
+    elsif File.exist?(clean_path)
       :clean
     else
       :pending
@@ -77,9 +77,7 @@ class AttachmentData < ActiveRecord::Base
     if carrierwave_file.present? && carrierwave_file_changed?
       self.content_type = file.file.content_type
       self.file_size = file.file.size
-      if pdf?
-        self.number_of_pages = calculate_number_of_pages
-      end
+      self.number_of_pages = calculate_number_of_pages if pdf?
     end
   end
 

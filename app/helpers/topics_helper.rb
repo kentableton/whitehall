@@ -22,6 +22,6 @@ module TopicsHelper
   end
 
   def topic_grid_size_class(*edition_scopes)
-    "grid-size-#{edition_scopes.compact.select(&:any?).length}"
+    "grid-size-#{edition_scopes.compact.count(&:any?)}"
   end
 end

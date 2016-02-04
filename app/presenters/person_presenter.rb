@@ -1,5 +1,4 @@
 class PersonPresenter < Whitehall::Decorators::Decorator
-
   delegate_instance_methods_of Person
 
   def available_in_multiple_languages?
@@ -33,7 +32,7 @@ class PersonPresenter < Whitehall::Decorators::Decorator
   def announcements
     announcements =
       model.published_speeches.with_translations(I18n.locale).limit(10).map { |s| SpeechPresenter.new(s, context) } +
-      model.published_news_articles.with_translations(I18n.locale).limit(10).map { |na| NewsArticlePresenter.new(na, context) }
+        model.published_news_articles.with_translations(I18n.locale).limit(10).map { |na| NewsArticlePresenter.new(na, context) }
     announcements.sort_by { |a| a.public_timestamp.to_datetime }.reverse[0..9]
   end
 
@@ -62,7 +61,7 @@ class PersonPresenter < Whitehall::Decorators::Decorator
 
   def image
     if img = image_url(:s216)
-     context.image_tag img, alt: name
+      context.image_tag img, alt: name
    end
   end
 

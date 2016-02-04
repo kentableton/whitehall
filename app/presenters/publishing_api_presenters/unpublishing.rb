@@ -5,6 +5,7 @@ module PublishingApiPresenters
     end
 
   private
+
     def document_format
       item.redirect? ? 'redirect' : 'unpublishing'
     end

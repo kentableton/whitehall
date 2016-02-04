@@ -64,6 +64,7 @@ class Admin::AttachmentsController < Admin::BaseController
   helper_method :attachable_attachments_path
 
 private
+
   def attachment
     @attachment ||= find_attachment || build_attachment
   end

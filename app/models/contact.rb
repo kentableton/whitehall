@@ -10,7 +10,7 @@ class Contact < ActiveRecord::Base
 
   validates :title, :contact_type, presence: true
   validates :contact_form_url, uri: true, allow_blank: true
-  validates :street_address, :country_id, presence: true, if: -> r { r.has_postal_address? }
+  validates :street_address, :country_id, presence: true, if: -> (r) { r.has_postal_address? }
   accepts_nested_attributes_for :contact_numbers, allow_destroy: true, reject_if: :all_blank
 
   after_update :republish_dependent_editions
@@ -70,5 +70,4 @@ class Contact < ActiveRecord::Base
   def missing_translations
     super & contactable.non_english_translated_locales
   end
-
 end

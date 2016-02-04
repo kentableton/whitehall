@@ -50,6 +50,7 @@ class Unpublishing < ActiveRecord::Base
   end
 
 private
+
   def redirect_not_circular
     if alternative_url.present?
       if document_path == alternative_path

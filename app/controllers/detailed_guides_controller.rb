@@ -11,6 +11,7 @@ class DetailedGuidesController < DocumentsController
   end
 
 private
+
   def document_class
     DetailedGuide
   end

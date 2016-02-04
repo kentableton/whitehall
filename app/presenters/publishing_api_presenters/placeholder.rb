@@ -5,6 +5,7 @@
 module PublishingApiPresenters
   class Placeholder < Item
   private
+
     def title
       item.name
     end

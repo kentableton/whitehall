@@ -4,7 +4,7 @@ require 'gds_api/panopticon'
 class PanopticonRegisterArtefactWorker < WorkerBase
   sidekiq_options queue: :panopticon
 
-  def perform(edition_id, options = {})
+  def perform(edition_id, _options = {})
     edition = Edition.find(edition_id)
 
     if edition.present?

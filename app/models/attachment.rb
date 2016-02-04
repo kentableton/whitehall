@@ -23,7 +23,7 @@ class Attachment < ActiveRecord::Base
   validates :order_url, uri: true, allow_blank: true
   validates :order_url, presence: {
     message: "must be entered as you've entered a price",
-    if: -> publication { publication.price.present? }
+    if: -> (publication) { publication.price.present? }
   }
   validates :price, numericality: {
     allow_blank: true, greater_than: 0
@@ -40,7 +40,7 @@ class Attachment < ActiveRecord::Base
   def self.parliamentary_sessions
     (1951..Time.zone.now.year).to_a.reverse.map do |year|
       starts = Date.new(year).strftime('%Y')
-      ends = Date.new(year + 1).strftime('%y')  # %y gives last two digits of year
+      ends = Date.new(year + 1).strftime('%y') # %y gives last two digits of year
       "#{starts}-#{ends}"
     end
   end
@@ -106,13 +106,13 @@ class Attachment < ActiveRecord::Base
     ''
   end
 
-  private
+private
 
   def store_price_in_pence
     self.price_in_pence = if price && price.to_s.empty?
-      nil
-    elsif price
-      price.to_f * 100
+                            nil
+                          elsif price
+                            price.to_f * 100
     end
   end
 

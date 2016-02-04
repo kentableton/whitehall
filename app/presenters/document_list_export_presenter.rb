@@ -105,9 +105,7 @@ class DocumentListExportPresenter
   end
 
   def policies
-    if edition.can_be_related_to_policies?
-      edition.policies.map(&:title)
-    end
+    edition.policies.map(&:title) if edition.can_be_related_to_policies?
   end
 
   def specialist_sectors
@@ -149,5 +147,4 @@ class DocumentListExportPresenter
       end
     end
   end
-
 end

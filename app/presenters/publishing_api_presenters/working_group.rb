@@ -1,5 +1,5 @@
 class PublishingApiPresenters::WorkingGroup < PublishingApiPresenters::Placeholder
-  private
+private
 
   def document_format
     "placeholder_working_group"

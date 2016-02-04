@@ -6,8 +6,9 @@ module Frontend
     end
 
   private
+
     def self.build_collection(release_announcement_hashes)
-      Array(release_announcement_hashes).map { | release_announcement_hash | build_from_rummager_hash(release_announcement_hash) }
+      Array(release_announcement_hashes).map { |release_announcement_hash| build_from_rummager_hash(release_announcement_hash) }
     end
 
     def self.build_from_rummager_hash(rummager_hash)
@@ -43,7 +44,7 @@ module Frontend
       params[:release_timestamp] = {
         from: (params.delete(:from_date) || Date.today).try(:iso8601),
         to: params.delete(:to_date).try(:iso8601)
-      }.delete_if {|k, v| v.blank? }
+      }.delete_if {|_k, v| v.blank? }
 
       params[:page] = params[:page].to_s
       params[:per_page] = params[:per_page].to_s

@@ -12,6 +12,7 @@ class PublishingApiPresenters::CaseStudy < PublishingApiPresenters::Edition
   end
 
 private
+
   def document_format
     "case_study"
   end

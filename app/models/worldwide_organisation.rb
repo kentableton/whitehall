@@ -98,5 +98,4 @@ class WorldwideOrganisation < ActiveRecord::Base
   def office_staff_roles
     roles.where(type: WorldwideOfficeStaffRole.name)
   end
-
 end

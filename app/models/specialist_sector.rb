@@ -19,6 +19,7 @@ class SpecialistSector < ActiveRecord::Base
   end
 
 private
+
   def self.nested_sectors
     find_subsectors(fetch_sectors).group_by(&:parent).sort_by {|parent, _| parent.title }
   end

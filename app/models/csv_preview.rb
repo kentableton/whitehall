@@ -62,11 +62,11 @@ private
 
   def encoding
     @encoding ||= if utf_8_encoding?
-      'UTF-8'
-    elsif windows_1252_encoding?
-      'windows-1252'
-    else
-      raise FileEncodingError, 'File encoding not recognised'
+                    'UTF-8'
+                  elsif windows_1252_encoding?
+                    'windows-1252'
+                  else
+                    raise FileEncodingError, 'File encoding not recognised'
     end
   end
 

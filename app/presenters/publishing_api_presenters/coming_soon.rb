@@ -21,6 +21,7 @@ module PublishingApiPresenters
     end
 
   private
+
     def document_format
       'coming_soon'
     end

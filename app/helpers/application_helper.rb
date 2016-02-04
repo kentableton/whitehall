@@ -1,5 +1,4 @@
 module ApplicationHelper
-
   def policies_path
     "/government/policies"
   end
@@ -12,7 +11,7 @@ module ApplicationHelper
     if title_parts.any?
       title_parts.push("Admin") if params[:controller] =~ /^admin\//
       title_parts.push("GOV.UK")
-      @page_title = title_parts.reject { |p| p.blank? }.join(" - ")
+      @page_title = title_parts.reject(&:blank?).join(" - ")
     else
       @page_title
     end
@@ -132,7 +131,7 @@ module ApplicationHelper
   def full_width_tabs(tab_data)
     content_tag(:nav, class: "activity-navigation") {
       content_tag(:ul) {
-        tab_data.map { | tab |
+        tab_data.map { |tab|
           content_tag :li do
             if tab[:current_when]
               link_to tab[:label], tab[:link_to], class: ('current' if tab[:current_when])
@@ -176,9 +175,7 @@ module ApplicationHelper
 
   def main_navigation_link_to(name, path, html_options = {}, &block)
     classes = (html_options[:class] || "").split
-    if current_main_navigation_path(params) == path
-      classes << "active"
-    end
+    classes << "active" if current_main_navigation_path(params) == path
     link_to(name, path, html_options.merge(class: classes.join(" ")), &block)
   end
 
@@ -197,7 +194,7 @@ module ApplicationHelper
       if parameters[:action] == 'home'
         root_path
       elsif parameters[:action] == 'get_involved'
-          get_involved_path
+        get_involved_path
       else
         how_government_works_path
       end
@@ -215,8 +212,8 @@ module ApplicationHelper
       if parameters[:publication_filter_option] == 'consultations'
         publications_path(publication_filter_option: 'consultations')
       elsif parameters[:publication_filter_option] == 'statistics' ||
-            parameters[:controller] == 'statistical_data_sets' ||
-            @document && @document.try(:statistics?)
+          parameters[:controller] == 'statistical_data_sets' ||
+          @document && @document.try(:statistics?)
         publications_path(publication_filter_option: 'statistics')
       else
         publications_path
@@ -303,7 +300,7 @@ module ApplicationHelper
     Locale.new(I18n.locale).rtl?
   end
 
-  def content_tag_if_not_empty(name, options = nil, &block)
+  def content_tag_if_not_empty(name, options = nil, &_block)
     content = capture do
       yield
     end

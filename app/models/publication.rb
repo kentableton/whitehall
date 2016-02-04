@@ -9,7 +9,7 @@ class Publication < Publicationesque
   include Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
   include Edition::TopicalEvents
 
-  validates :first_published_at, presence: true, if: -> e { e.trying_to_convert_to_draft == true }
+  validates :first_published_at, presence: true, if: -> (e) { e.trying_to_convert_to_draft == true }
   validates :publication_type_id, presence: true
   validate :only_publications_allowed_invalid_data_can_be_awaiting_type
   validate :attachment_required_before_moving_out_of_draft
@@ -101,8 +101,6 @@ class Publication < Publicationesque
     # us, so returning nil is ok even though it would break the SQL insert
     if self.publication_type.present?
       self.publication_type.access_limited_by_default?
-    else
-      nil
     end
   end
 
@@ -132,7 +130,7 @@ class Publication < Publicationesque
     end
   end
 
-  private
+private
 
   def attachment_required_before_moving_out_of_draft
     if %w(submitted scheduled published).include?(state) && !has_attachments?

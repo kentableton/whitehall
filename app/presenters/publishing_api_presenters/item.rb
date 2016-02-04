@@ -37,6 +37,7 @@ module PublishingApiPresenters
     end
 
   private
+
     attr_accessor :item
 
     def rendering_app

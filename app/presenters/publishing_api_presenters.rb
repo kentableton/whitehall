@@ -7,11 +7,12 @@ require 'publishing_api_presenters/redirect'
 require 'publishing_api_presenters/policy_area_placeholder'
 
 module PublishingApiPresenters
-  def self.presenter_for(model, options={})
+  def self.presenter_for(model, options = {})
     presenter_class_for(model).new(model, options)
   end
 
 private
+
   def self.presenter_class_for(model)
     case model
     when ::Edition
