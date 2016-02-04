@@ -32,7 +32,7 @@ class NavigationSelectionTest < ActiveSupport::TestCase
     end
   end
 
-  private
+private
 
   def tested_controllers
     Dir[Rails.root + "app/controllers/*_controller.rb"].reject do |controller|
@@ -49,5 +49,4 @@ class NavigationSelectionTest < ActiveSupport::TestCase
     assert current_main_navigation_path(controller: controller),
         "could not find navigation path for controller: #{controller_file}"
   end
-
 end

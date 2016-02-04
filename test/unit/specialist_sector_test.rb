@@ -88,6 +88,7 @@ class SpecialistSectorTest < ActiveSupport::TestCase
   end
 
 private
+
   def use_real_content_api
     Whitehall.content_api = GdsApi::ContentApi.new(Plek.find('content_api'))
   end

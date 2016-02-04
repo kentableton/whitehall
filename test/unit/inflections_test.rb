@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class InflectionsTest < ActiveSupport::TestCase
-
   test 'Ministerial roles are correctly pluralised correctly' do
     assert_equal 'Ministers of Junk', 'Minister of Junk'.pluralize
   end

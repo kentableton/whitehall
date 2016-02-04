@@ -32,14 +32,14 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
 
   test ".presenter_for returns a Placeholder presenter for an organisation" do
     organisation = Organisation.new
-    presenter  = PublishingApiPresenters.presenter_for(organisation)
+    presenter = PublishingApiPresenters.presenter_for(organisation)
 
     assert_equal PublishingApiPresenters::Placeholder, presenter.class
   end
 
   test ".presenter_for returns a Placeholder presenter for a world location" do
     world_location = WorldLocation.new
-    presenter  = PublishingApiPresenters.presenter_for(world_location)
+    presenter = PublishingApiPresenters.presenter_for(world_location)
 
     assert_equal PublishingApiPresenters::Placeholder, presenter.class
   end

@@ -148,5 +148,4 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
 
     assert_equal 'logos/flag.jpeg', draft_edition.logo_url
   end
-
 end

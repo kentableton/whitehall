@@ -2,7 +2,6 @@
 require 'test_helper'
 
 class Whitehall::GovUkDelivery::SubscriptionUrlGeneratorTest < ActiveSupport::TestCase
-
   def feed_url(url_fragment)
     "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/#{url_fragment}"
   end

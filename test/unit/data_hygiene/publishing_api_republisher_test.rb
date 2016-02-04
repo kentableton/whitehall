@@ -17,5 +17,4 @@ class DataHygiene::PublishingApiRepublisherTest < ActiveSupport::TestCase
 
     assert_all_requested(expected_requests)
   end
-
 end

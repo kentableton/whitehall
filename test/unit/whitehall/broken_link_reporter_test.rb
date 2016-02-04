@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class BrokenLinkReporterTest < ActiveSupport::TestCase
-
   class EditionCheckerTest < ActiveSupport::TestCase
     test '#page_url returns the production public page URL of the document' do
       detailed_guide = create(:detailed_guide)
@@ -79,7 +78,7 @@ class BrokenLinkReporterTest < ActiveSupport::TestCase
       checker.check_links
 
       expected_broken_links = ['https://www.gov.uk/bad-link',
-                             'https://www.gov.uk/missing-link']
+                               'https://www.gov.uk/missing-link']
 
       assert_equal expected_broken_links, checker.broken_links
     end

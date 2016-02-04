@@ -4,7 +4,7 @@ class PoliticalContentIdentifierTest < ActiveSupport::TestCase
   test 'fatality notices are never political, even when associated with a minister' do
     fatality_notice = create(:fatality_notice,
       role_appointments: [create(:ministerial_role_appointment)]
-    )
+                            )
 
     refute political?(fatality_notice)
   end
@@ -12,7 +12,7 @@ class PoliticalContentIdentifierTest < ActiveSupport::TestCase
   test 'statistics publications are never political, even when associated with a minister' do
     statistics_publication = create(:publication, :statistics,
       role_appointments: [create(:ministerial_role_appointment)]
-    )
+                                   )
 
     refute political?(statistics_publication)
   end

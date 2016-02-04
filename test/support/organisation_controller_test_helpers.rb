@@ -15,7 +15,7 @@ module OrganisationControllerTestHelpers
       view_test "#{org_type}:shows organisation name" do
         organisation = create(org_type,
           logo_formatted_name: "unformatted name"
-        )
+                             )
         get :show, id: organisation
         assert_select ".organisation h1", text: "unformatted name"
       end
@@ -105,9 +105,9 @@ module OrganisationControllerTestHelpers
       view_test "#{org_type}:shows 3 most recently published editions associated with organisation when featuring a doc" do
         # different edition types sort on different attributes
         editions = [create(:published_news_article, first_published_at: 1.days.ago),
-                  create(:published_publication, first_published_at: 2.days.ago),
-                  create(:published_consultation, first_published_at: 3.days.ago),
-                  create(:published_speech, first_published_at: 4.days.ago)]
+                    create(:published_publication, first_published_at: 2.days.ago),
+                    create(:published_consultation, first_published_at: 3.days.ago),
+                    create(:published_speech, first_published_at: 4.days.ago)]
 
         organisation = create(org_type, editions: editions)
 

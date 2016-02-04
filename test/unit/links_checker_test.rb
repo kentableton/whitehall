@@ -10,7 +10,7 @@ class LinkCheckerTest < ActiveSupport::TestCase
   end
 
   test "returns broken links" do
-    checker   = LinksChecker.new([not_found, gone, success, success_2, failed], NullLogger.instance)
+    checker = LinksChecker.new([not_found, gone, success, success_2, failed], NullLogger.instance)
     broken_links = [not_found, gone, failed]
     checker.run
 
@@ -18,7 +18,7 @@ class LinkCheckerTest < ActiveSupport::TestCase
   end
 
   test 'broken links are only reported once' do
-    checker   = LinksChecker.new([not_found, not_found, success], NullLogger.instance)
+    checker = LinksChecker.new([not_found, not_found, success], NullLogger.instance)
     checker.run
 
     assert_same_elements [not_found], checker.broken_links
@@ -30,7 +30,7 @@ class LinkCheckerTest < ActiveSupport::TestCase
       LinksChecker.authed_domains = { 'www.requires-auth.com' => 'user:password' }
       stub_request(:get, 'user:password@www.requires-auth.com/authed_page').to_return(status: 400)
 
-      checker   = LinksChecker.new(['http://www.requires-auth.com/authed_page'], NullLogger.instance)
+      checker = LinksChecker.new(['http://www.requires-auth.com/authed_page'], NullLogger.instance)
       checker.run
 
       assert_same_elements ['http://www.requires-auth.com/authed_page'], checker.broken_links
@@ -42,7 +42,7 @@ class LinkCheckerTest < ActiveSupport::TestCase
   test 'bad URIs do not cause link checker to fall over' do
     bad_link = 'http://wales.gov.uk/?lang=en}'
     stub_link_check(bad_link, 500)
-    checker   = LinksChecker.new([bad_link], NullLogger.instance)
+    checker = LinksChecker.new([bad_link], NullLogger.instance)
     checker.run
 
     assert_equal [bad_link], checker.broken_links

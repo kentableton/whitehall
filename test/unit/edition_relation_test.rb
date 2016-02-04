@@ -16,7 +16,7 @@ class EditionRelationTest < ActiveSupport::TestCase
     relation = build(:edition_relation,
       edition: existing_relation.edition,
       document: existing_relation.document
-    )
+                    )
     refute relation.valid?
   end
 

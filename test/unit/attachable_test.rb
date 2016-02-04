@@ -111,10 +111,10 @@ class AttachableTest < ActiveSupport::TestCase
                                            hoc_paper_number: "1234", parliamentary_session: '2013-14',
                                            command_paper_number: "Cm. 1234", unique_reference: "w123",
                                            isbn: "0140620222"
-      )
+                        )
     ])
 
-    index = edition.attachments.to_a.index { |attachment| attachment.kind_of?(FileAttachment) }
+    index = edition.attachments.to_a.index { |attachment| attachment.is_a?(FileAttachment) }
 
     assert_equal "The title of the attachment", edition.search_index['attachments'][index][:title]
     assert_equal attachment.isbn, edition.search_index['attachments'][index][:isbn]
@@ -128,7 +128,7 @@ class AttachableTest < ActiveSupport::TestCase
       build(:html_attachment, title: "The title of the HTML attachment",
                                            unique_reference: "w123",
                                            body: "##Test HTML attachment"
-      )
+           )
     ])
 
     assert_equal "The title of the HTML attachment", edition.search_index['attachments'][0][:title]

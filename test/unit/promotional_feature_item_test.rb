@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class PromotionalFeatureItemTest < ActiveSupport::TestCase
-
   test "invalid without a summary" do
     refute build(:promotional_feature_item, summary: nil).valid?
   end
@@ -27,7 +26,7 @@ class PromotionalFeatureItemTest < ActiveSupport::TestCase
     assert_equal 'Example link', item.links.first.text
   end
 
-  private
+private
 
   def string_of_length(length)
     'X' * length

@@ -92,5 +92,4 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
 
     refute list.shown_on_home_page?(office)
   end
-
 end

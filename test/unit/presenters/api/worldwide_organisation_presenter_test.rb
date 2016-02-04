@@ -31,7 +31,7 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
   end
 
   test 'links has a self link, pointing to the request-relative api worldwide organisations url' do
-    self_link = @presenter.links.detect { |(url, attrs)| attrs['rel'] == 'self'}
+    self_link = @presenter.links.detect { |(_url, attrs)| attrs['rel'] == 'self'}
     assert self_link
     url, attrs = *self_link
     assert_equal api_worldwide_organisation_url(@world_org), url
@@ -182,5 +182,4 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
     @office.stubs(:worldwide_office_type).returns WorldwideOfficeType::Embassy
     assert_equal WorldwideOfficeType::Embassy.name, @presenter.as_json[:offices][:main][:details][:type]
   end
-
 end

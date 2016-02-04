@@ -62,7 +62,7 @@ class ScheduledPublishingWorkerTest < ActiveSupport::TestCase
 
       assert Sidekiq::ScheduledSet.new.detect { |job|
         control.id == job['args'].first &&
-        control.scheduled_publication.to_i == job.at.to_i
+          control.scheduled_publication.to_i == job.at.to_i
       }
     end
   end
@@ -98,7 +98,7 @@ class ScheduledPublishingWorkerTest < ActiveSupport::TestCase
       ScheduledPublishingWorker.perform_at(1.day.from_now, '3')
       ScheduledPublishingWorker.perform_at(2.days.from_now, '6')
 
-      assert_equal ['3', '6'], ScheduledPublishingWorker.queued_edition_ids
+      assert_equal %w(3 6), ScheduledPublishingWorker.queued_edition_ids
     end
   end
 end

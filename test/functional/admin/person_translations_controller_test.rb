@@ -33,7 +33,7 @@ class Admin::PersonTranslationsControllerTest < ActionController::TestCase
       translated_into: {
         fr: { biography: "Elle est née. Elle a vécu. Elle est morte." }
       }
-    )
+                   )
 
     get :index, person_id: person
 
@@ -49,7 +49,7 @@ class Admin::PersonTranslationsControllerTest < ActionController::TestCase
         fr: { biography: "Elle est née. Elle a vécu. Elle est morte." },
         es: { biography: "Ella nació. Ella vivía. Ella murió." },
       }
-    )
+                   )
 
     get :index, person_id: person
 
@@ -62,7 +62,7 @@ class Admin::PersonTranslationsControllerTest < ActionController::TestCase
       translated_into: {
         fr: { biography: "Elle est née. Elle a vécu. Elle est morte." }
       }
-    )
+                   )
 
     get :index, person_id: person
 
@@ -85,7 +85,7 @@ class Admin::PersonTranslationsControllerTest < ActionController::TestCase
       translated_into: {
         fr: { biography: "Elle est née. Elle a vécu. Elle est morte." }
       }
-    )
+                   )
 
     get :index, person_id: person
 
@@ -123,7 +123,7 @@ class Admin::PersonTranslationsControllerTest < ActionController::TestCase
   view_test 'edit form adds right-to-left class and dir attribute for text field and areas in right-to-left languages' do
     person = create(:person, translated_into: {
       ar: { biography: 'ولدت. عاشت. توفيت.' }}
-    )
+                   )
 
     get :edit, person_id: person, id: 'ar'
 

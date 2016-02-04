@@ -9,7 +9,7 @@ FactoryGirl.define do
     summary 'edition-summary'
     previously_published false
 
-    after :build do |edition, evaluator|
+    after :build do |edition, _evaluator|
       edition.skip_virus_status_check = true
     end
 
@@ -60,7 +60,7 @@ FactoryGirl.define do
         submitter nil
       end
       state "submitted"
-      after :create do | edition, evaluator |
+      after :create do |edition, evaluator|
         edition.versions.first.update_attributes(event: 'create', state: 'draft')
         submitter = evaluator.submitter.present? ? evaluator.submitter : edition.creator
         edition.versions.create! event: 'update', whodunnit: submitter.id, state: 'submitted'
@@ -74,9 +74,7 @@ FactoryGirl.define do
       force_published { false }
       published_major_version 1
       published_minor_version 0
-      after :create do |edition|
-        edition.refresh_index_if_required
-      end
+      after :create, &:refresh_index_if_required
     end
     trait(:deleted) {
       state "deleted"
@@ -101,7 +99,7 @@ FactoryGirl.define do
     trait(:with_file_attachment) do
       association :alternative_format_provider, factory: :organisation_with_alternative_format_contact_email
       attachments { FactoryGirl.build_list :file_attachment, 1 }
-      after :create do |edition, evaluator|
+      after :create do |edition, _evaluator|
         VirusScanHelpers.simulate_virus_scan(edition.attachments.first.attachment_data.file)
       end
     end

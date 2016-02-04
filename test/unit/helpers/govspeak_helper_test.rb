@@ -97,7 +97,7 @@ class GovspeakHelperTest < ActionView::TestCase
     attachment = build(:html_attachment,
       body: "## 1. First\n\n## 2. Second\n\n### 2.1 Sub",
       manually_numbered_headings: true
-    )
+                      )
     expected_headings = [Govspeak::Header.new("<span class=\"heading-number\">1.</span> First", 2, "first"),
                          Govspeak::Header.new("<span class=\"heading-number\">2.</span> Second", 2, "second")]
 
@@ -262,7 +262,7 @@ class GovspeakHelperTest < ActionView::TestCase
 
   test "leaves heading numbers not occuring at the start of the heading text alone when using manual heading numbering" do
     input = "## Number 8"
-    result =  Nokogiri::HTML::DocumentFragment.parse(govspeak_to_html(input, [], heading_numbering: :manual))
+    result = Nokogiri::HTML::DocumentFragment.parse(govspeak_to_html(input, [], heading_numbering: :manual))
     assert_equal "Number 8", result.css('h2').first.text
   end
 
@@ -320,7 +320,7 @@ class GovspeakHelperTest < ActionView::TestCase
   end
 
   test 'will add a stacked, compact, negative barchart class to a marked table' do
-        input = '
+    input = '
 |col|
 |---|
 |val|

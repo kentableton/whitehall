@@ -63,5 +63,4 @@ class WorldwideOrganisationsControllerTest < ActionController::TestCase
     worldwide_organisation.reload
     refute worldwide_organisation.has_home_page_offices_list?
   end
-
 end

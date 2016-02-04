@@ -81,7 +81,7 @@ class Admin::WorldwideOrganisationsTranslationsControllerTest < ActionController
       translated_into: {fr: {
         name: 'Département des barbes en France',
       }}
-    )
+                                   )
 
     get :edit, worldwide_organisation_id: worldwide_organisation, id: 'fr'
 

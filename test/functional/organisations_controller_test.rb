@@ -132,11 +132,11 @@ class OrganisationsControllerTest < ActionController::TestCase
     test "#show sets Cache-Control: max-age to the time of the next scheduled #{edition_type}" do
       organisation = create(:ministerial_department)
       edition = if block_given?
-        yield organisation
-      else
-        create(edition_type, :scheduled,
-          scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2,
-          organisations: [organisation])
+                  yield organisation
+                else
+                  create(edition_type, :scheduled,
+                    scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2,
+                    organisations: [organisation])
       end
 
       Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
@@ -201,7 +201,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     )
     VirusScanHelpers.simulate_virus_scan(organisation.logo)
     get :show, id: organisation
-    assert_select %Q{img[alt="#{organisation.name}"][src*="logo.png"]}
+    assert_select %{img[alt="#{organisation.name}"][src*="logo.png"]}
   end
 
   view_test "#show includes the parent organisations for sub-organisations in the header" do
@@ -369,7 +369,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :show, id: organisation
 
     assert_select "#policies" do
-      assert_select "a[href='#{policy["base_path"]}']", text: "Welfare reform"
+      assert_select "a[href='#{policy['base_path']}']", text: "Welfare reform"
 
       assert_select "a[href='#{policies_finder_path(organisations: [organisation])}']"
     end
@@ -901,7 +901,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select "a", text: "Jobs"
   end
 
-  private
+private
 
   def assert_disclaimer_present(organisation)
     assert_select "#organisation_disclaimer" do

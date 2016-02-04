@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class Whitehall::GovUkDelivery::NotifierTest < ActiveSupport::TestCase
-
   def notifier_for(edition)
     Whitehall::GovUkDelivery::Notifier.new(edition)
   end

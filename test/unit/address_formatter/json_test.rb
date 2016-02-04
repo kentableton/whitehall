@@ -131,5 +131,4 @@ class AddressFormatter::JsonTest < ActiveSupport::TestCase
     Country
     EOF
   end
-
 end

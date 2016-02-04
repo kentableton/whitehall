@@ -51,7 +51,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
       publication_type_id: PublicationType::OfficialStatistics.id,
       lead_organisation_ids: [@organisation.id],
       statistics_announcement_id: statistics_announcement.id
-    )
+                                                    )
 
     assert publication = Publication.last, assigns(:edition).errors.full_messages.inspect
     assert_redirected_to admin_publication_path(publication)
@@ -62,7 +62,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     post :create, edition: controller_attributes_for(:publication,
       first_published_at: Time.zone.parse("2001-10-21 00:00:00"),
       publication_type_id: PublicationType::ResearchAndAnalysis.id
-    )
+                                                    )
 
     created_publication = Publication.last
     assert_equal Time.zone.parse("2001-10-21 00:00:00"), created_publication.first_published_at
@@ -119,7 +119,8 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   end
 
   test "prevents CRUD operations on access-limited publications" do
-    my_organisation, other_organisation = create(:organisation), create(:organisation)
+    my_organisation = create(:organisation)
+    other_organisation = create(:organisation)
     login_as(create(:user, organisation: my_organisation))
     inaccessible = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [other_organisation])
 
@@ -136,7 +137,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  private
+private
 
   def controller_attributes_for(edition_type, attributes = {})
     super.except(:alternative_format_provider).reverse_merge(

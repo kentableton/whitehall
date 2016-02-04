@@ -1092,7 +1092,7 @@ module AdminEditionControllerTestHelpers
           related_mainstream_content_title: "Some Mainstream Content",
           additional_related_mainstream_content_url: "http://mainstream/additional-content",
           additional_related_mainstream_content_title: "Some Additional Mainstream Content"
-        )
+                        )
 
         put :update, id: edition, edition: {
           related_mainstream_content_url: "http://mainstream/updated-content",
@@ -1188,7 +1188,7 @@ module AdminEditionControllerTestHelpers
         post :create, edition: controller_attributes_for(edition_type,
           first_published_at: Date.parse("2010-10-21"),
           relevant_to_local_government: '1'
-        )
+                                                        )
 
         assert created_publication = edition_class.last
         assert created_publication.relevant_to_local_government?
@@ -1328,6 +1328,5 @@ module AdminEditionControllerTestHelpers
         assert_equal [first_worldwide_priority, second_worldwide_priority], edition.worldwide_priorities
       end
     end
-
   end
 end

@@ -25,7 +25,7 @@ class Api::DetailedGuidePresenterTest < PresenterTestCase
   end
 
   test 'links has a self link, pointing to the public API url' do
-    self_link = @presenter.links.detect { |(url, attrs)| attrs['rel'] == 'self'}
+    self_link = @presenter.links.detect { |(_url, attrs)| attrs['rel'] == 'self'}
     assert self_link
     url, attrs = *self_link
     assert_equal api_detailed_guide_url(@guide.document), url

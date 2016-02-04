@@ -2,7 +2,7 @@ require 'test_helper'
 
 class EditionPublisherTest < ActiveSupport::TestCase
   test '#perform! with a valid submitted edition publishes the edition, setting the publishing timestamps and version' do
-    edition   = create(:submitted_edition)
+    edition = create(:submitted_edition)
 
     assert EditionPublisher.new(edition).perform!
     assert edition.published?
@@ -37,7 +37,7 @@ class EditionPublisherTest < ActiveSupport::TestCase
     refute publisher.perform!
     refute edition.published?
 
-    expected_reason = "Scheduled editions cannot be published. This edition is scheduled for publication on #{edition.scheduled_publication.to_s}"
+    expected_reason = "Scheduled editions cannot be published. This edition is scheduled for publication on #{edition.scheduled_publication}"
     assert_equal expected_reason, publisher.failure_reason
   end
 

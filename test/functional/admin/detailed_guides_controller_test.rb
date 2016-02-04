@@ -29,7 +29,7 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
 
     post :create, edition: attributes
 
-    assert_equal ["123456", "789012"], DetailedGuide.last.need_ids
+    assert_equal %w(123456 789012), DetailedGuide.last.need_ids
   end
 
   view_test "user needs associated with a detailed guide" do
@@ -48,11 +48,11 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
       }
     ])
 
-    detailed_guide = create(:detailed_guide, need_ids: ["123456", "456789"])
+    detailed_guide = create(:detailed_guide, need_ids: %w(123456 456789))
 
     get :show, id: detailed_guide.id
 
-    assert_select "#user-needs-section" do |section|
+    assert_select "#user-needs-section" do |_section|
       assert_select "#user-need-id-123456" do
         assert_select ".description", text: "As a x,\n    I need to y,\n    So that z"
         assert_select ".maslow-url[href*='123456']"
@@ -65,7 +65,7 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
     end
   end
 
-  private
+private
 
   def controller_attributes_for(edition_type, attributes = {})
     super.except(:alternative_format_provider).reverse_merge(

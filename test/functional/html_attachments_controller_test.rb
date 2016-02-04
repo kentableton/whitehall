@@ -115,6 +115,7 @@ class HtmlAttachmentsControllerTest < ActionController::TestCase
   end
 
 private
+
   def create_edition_and_attachment(options = {})
     type = options.fetch(:type, :publication)
     state = options.fetch(:state, :published)

@@ -759,7 +759,7 @@ class EditionTest < ActiveSupport::TestCase
     topic_1 = create(:topic)
     topic_2 = create(:topic)
     news_article = create(:news_article, topics: [topic_1])
-    publication       = create(:publication, topics: [topic_1, topic_2])
+    publication = create(:publication, topics: [topic_1, topic_2])
     speech       = create(:speech)
 
     assert_equal [news_article, publication], Edition.with_classification(topic_1)
@@ -769,13 +769,13 @@ class EditionTest < ActiveSupport::TestCase
   should_not_accept_footnotes_in :body
 
   test 'need ids can be stored on the edition' do
-    edition = create(:edition, need_ids: ["100001", "100002", "100003"])
+    edition = create(:edition, need_ids: %w(100001 100002 100003))
     edition.reload
-    assert_equal ["100001", "100002", "100003"], edition.need_ids
+    assert_equal %w(100001 100002 100003), edition.need_ids
   end
 
   test 'need ids ought to be six-digit integers' do
-    edition_with_invalid_need_ids = build(:edition, need_ids: ["12345", "x1234", "678905"])
+    edition_with_invalid_need_ids = build(:edition, need_ids: %w(12345 x1234 678905))
     refute edition_with_invalid_need_ids.valid?
     refute edition_with_invalid_need_ids.errors[:need_ids].empty?
 
@@ -794,7 +794,7 @@ class EditionTest < ActiveSupport::TestCase
   test 'should have associated needs when need ids are present' do
     need_api_has_need_ids([{ "id" => "000123" }, { "id" => "000456" }])
 
-    edition = create(:edition, need_ids: ["000123", "000456"])
+    edition = create(:edition, need_ids: %w(000123 000456))
 
     assert edition.has_associated_needs?
     assert_equal "000123", edition.associated_needs.first.id
@@ -886,5 +886,4 @@ class EditionTest < ActiveSupport::TestCase
     edition = create(:edition, political: false, first_published_at: nil)
     refute edition.historic?
   end
-
 end

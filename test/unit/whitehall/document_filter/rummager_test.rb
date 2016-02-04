@@ -2,18 +2,17 @@ require 'test_helper'
 
 module Whitehall::DocumentFilter
   class RummagerTest < ActiveSupport::TestCase
-
     setup do
       Whitehall.government_search_client.stubs(:advanced_search).returns {}
     end
 
     def format_types(*classes)
-      classes.map { |cls| cls.search_format_type }
+      classes.map(&:search_format_type)
     end
 
     def expect_search_by_format_types(format_types)
       Whitehall.government_search_client.expects(:advanced_search).with(
-          has_entry({ search_format_types: format_types }))
+        has_entry({ search_format_types: format_types }))
     end
 
     test 'announcements_search looks for NewsArticles, FatalityNotices and Speeches by default' do

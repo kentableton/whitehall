@@ -4,7 +4,6 @@ require 'test_helper'
 module Whitehall
   module GovUkDelivery
     class WorkerTest < ActiveSupport::TestCase
-
       test ".notify! performs the job asynchronously with the given arguments" do
         edition = create(:published_publication)
         notification_date = Time.zone.now
@@ -45,7 +44,6 @@ module Whitehall
         edition = create(:published_edition)
         Worker.new.perform(edition.id, Date.today.iso8601, {})
       end
-
     end
   end
 end

@@ -2,7 +2,6 @@ require 'test_helper'
 require "securerandom"
 
 class StatisticsAnnouncementTest < ActiveSupport::TestCase
-
   test 'can set publication type using an ID' do
     announcement = StatisticsAnnouncement.new(publication_type_id: PublicationType::OfficialStatistics.id)
 
@@ -57,7 +56,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
   end
 
   test 'is search indexable' do
-    announcement   = create_announcement_with_changes
+    announcement = create_announcement_with_changes
     expected_indexed_content = {
       'title' => announcement.title,
       'link' => announcement.public_path,
@@ -123,7 +122,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     national_statistics = create(:draft_national_statistics)
     policy_paper        = create(:draft_policy_paper)
 
-    announcement   = build(:statistics_announcement, publication_type_id: PublicationType::OfficialStatistics.id)
+    announcement = build(:statistics_announcement, publication_type_id: PublicationType::OfficialStatistics.id)
 
     announcement.publication = statistics
     assert announcement.valid?
@@ -148,7 +147,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
   end
 
   test '#most_recent_change_note returns the most recent change note' do
-    announcement    = create_announcement_with_changes
+    announcement = create_announcement_with_changes
 
     assert_equal '11 January 2012 9:30am', announcement.reload.display_date
     assert announcement.confirmed?

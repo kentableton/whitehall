@@ -86,6 +86,7 @@ class SchedulingTest < ActiveSupport::TestCase
   end
 
 private
+
   def schedule(edition, options = {})
     Whitehall.edition_services.scheduler(edition, options).perform!
   end

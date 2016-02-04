@@ -3,7 +3,6 @@ require 'test_helper'
 
 module Whitehall::GovUkDelivery
   class EmailFormatterTest < ActiveSupport::TestCase
-
     def assert_equal_ignoring_whitespace(expected, actual)
       assert_equal expected.gsub(/\s+/, ' ').strip, actual.gsub(/\s+/, ' ').strip
     end
@@ -82,6 +81,5 @@ module Whitehall::GovUkDelivery
       assert_match %r(&quot;tip-top&quot; added), body
       assert_match %r(Keep your beard &quot;tip-top&quot;!), body
     end
-
   end
 end

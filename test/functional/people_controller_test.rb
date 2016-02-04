@@ -14,7 +14,7 @@ class PeopleControllerTest < ActionController::TestCase
         role: stub_translatable_record(role_type, organisations: [organisation]),
         person: stub_translatable_record(:person, organisations: [organisation])
       }.merge(options)
-    )
+               )
   end
 
   setup do

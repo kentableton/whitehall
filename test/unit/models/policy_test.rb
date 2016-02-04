@@ -29,6 +29,6 @@ class PolicyTest < ActiveSupport::TestCase
     policy_2_object = Policy.find(policy_2["content_id"])
 
     assert_equal policy_area_1["title"], policy_1_object.policy_areas.first.title
-    assert_equal [policy_area_1["title"], policy_area_2["title"]] , policy_2_object.policy_areas.map(&:title)
+    assert_equal [policy_area_1["title"], policy_area_2["title"]], policy_2_object.policy_areas.map(&:title)
   end
 end

@@ -14,7 +14,7 @@ class DocumentSeriesGroupTest < ActiveSupport::TestCase
 
     group.documents << doc_1 = create(:document)
     group.documents << doc_2 = create(:document)
-                       doc_3 = create(:document)
+    doc_3 = create(:document)
 
     group.set_document_ids_in_order! [doc_3.id, doc_1.id]
 

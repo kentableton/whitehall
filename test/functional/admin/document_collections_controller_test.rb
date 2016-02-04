@@ -17,7 +17,7 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
     collection = create(:document_collection,
       title: "collection-title",
       summary: "the summary"
-    )
+                       )
 
     get :show, id: collection
 
@@ -102,5 +102,4 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
     refute DocumentCollection.exists?(document_collection.id)
     assert_response :redirect
   end
-
 end

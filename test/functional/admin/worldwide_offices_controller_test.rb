@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
-
   setup do
     login_as :departmental_editor
   end
@@ -99,7 +98,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
       worldwide_organisation_id: worldwide_organisation.id
 
     assert_equal 1, worldwide_organisation.offices.count
-    assert_equal [service1, service2], worldwide_organisation.offices.first.services.sort_by {|s| s.id}
+    assert_equal [service1, service2], worldwide_organisation.offices.first.services.sort_by(&:id)
   end
 
   test "post create creates associated phone numbers" do
@@ -207,7 +206,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
       id: office,
       worldwide_organisation_id: worldwide_organisation
 
-    assert_equal [service2, service3], office.reload.services.sort_by {|s| s.id}
+    assert_equal [service2, service3], office.reload.services.sort_by(&:id)
   end
 
   test "put update updates associated phone numbers" do

@@ -47,6 +47,7 @@ class Edition::TopicsTest < ActiveSupport::TestCase
   end
 
 private
+
   def attributes_for_edition
     attributes_for(:edition).merge(creator: build(:creator))
   end

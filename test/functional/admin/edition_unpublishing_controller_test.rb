@@ -39,5 +39,4 @@ class Admin::EditionUnpublishingControllerTest < ActionController::TestCase
     assert_equal "The public explanation could not be updated", flash[:alert]
     assert_equal "Content is mislidding", unpublishing.reload.explanation
   end
-
 end

@@ -1,7 +1,7 @@
 require "test_helper"
 
 class Admin::EditionsHelperTest < ActionView::TestCase
-  def govspeak_embedded_contacts(*args)
+  def govspeak_embedded_contacts(*_args)
     []
   end
 
@@ -78,9 +78,9 @@ class Admin::EditionsHelperTest < ActionView::TestCase
 
   test 'specialist_sector_fields should return nothing when the list of sectors is unavailable' do
     SpecialistSector.stubs(:grouped_sector_topics)
-                    .raises(SpecialistSector::DataUnavailable.new)
+      .raises(SpecialistSector::DataUnavailable.new)
 
-    response = specialist_sector_fields do |sectors|
+    response = specialist_sector_fields do |_sectors|
       assert false, 'Block should not be called'
       'Some string'
     end

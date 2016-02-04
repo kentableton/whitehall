@@ -186,5 +186,4 @@ class SpeechTest < ActiveSupport::TestCase
     speech = create(:imported_speech, delivered_on: nil)
     assert_nil speech.government
   end
-
 end

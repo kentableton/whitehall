@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class Admin::TaggableContentHelperTest < ActionView::TestCase
-
   test '#taggable_topics_container returns an array of name/ID pairs for all Topics' do
     topic_b = create(:topic, name: 'Topic B')
     topic_a = create(:topic, name: 'Topic A')
@@ -93,7 +92,7 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
 
     minister_appointment      = create(:role_appointment, role: minister, person: brown)
     board_member_appointment = create(:role_appointment, role: board_member, person: clinton)
-    old_minister_appointment  = create(:role_appointment,
+    old_minister_appointment = create(:role_appointment,
                                           role: minister,
                                           person: richard,
                                           started_at: Date.new(1932, 12, 5),

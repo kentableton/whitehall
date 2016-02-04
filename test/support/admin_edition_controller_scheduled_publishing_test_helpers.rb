@@ -71,7 +71,7 @@ module AdminEditionControllerScheduledPublishingTestHelpers
         edition_attributes = controller_attributes_for(edition_type,
           first_published_at: Date.parse("2010-10-21"),
           publication_type_id: PublicationType::ResearchAndAnalysis.id
-        ).merge(scheduled_publication_attributes(Time.zone.now))
+                                                      ).merge(scheduled_publication_attributes(Time.zone.now))
 
         post :create, {scheduled_publication_active: "0", edition: edition_attributes}
 
@@ -84,7 +84,7 @@ module AdminEditionControllerScheduledPublishingTestHelpers
         edition_attributes = controller_attributes_for(edition_type,
           first_published_at: Date.parse("2010-10-21"),
           publication_type_id: PublicationType::ResearchAndAnalysis.id
-        ).merge(scheduled_publication_attributes(selected_time))
+                                                      ).merge(scheduled_publication_attributes(selected_time))
 
         post :create, {scheduled_publication_active: "1", edition: edition_attributes}
 

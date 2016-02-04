@@ -10,7 +10,7 @@ class NotificationsFactCheckRequestTest < ActionMailer::TestCase
       email_address: 'fact-checker@example.com',
       edition: @publication,
       requestor: @requestor
-    )
+                    )
     @mail = Notifications.fact_check_request(@request, host: "example.com")
   end
 
@@ -62,12 +62,12 @@ class NotificationsFactCheckResponseTest < ActionMailer::TestCase
     @requestor = build(:fact_check_requestor,
       name: "<requestor-name>",
       email: "fact-check-requestor@example.com"
-    )
+                      )
     @request = build(:fact_check_request,
       email_address: 'fact-checker@example.com',
       edition: @publication,
       requestor: @requestor
-    )
+                    )
     @mail = Notifications.fact_check_response(@request, host: "example.com")
   end
 

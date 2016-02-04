@@ -42,7 +42,7 @@ class GovUkDeliveryTest < ActiveSupport::TestCase
     assert_requested stub
   end
 
-  private
+private
 
   def created_response_hash
     { body: '', status: 201 }

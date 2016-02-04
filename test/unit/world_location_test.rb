@@ -44,8 +44,8 @@ class WorldLocationTest < ActiveSupport::TestCase
   test ".worldwide_organisations_with_sponsoring_organisations returns all related organisations" do
     world_location = create(:world_location, :with_worldwide_organisations)
     related_organisations = world_location.worldwide_organisations +
-                              world_location.worldwide_organisations
-                                .map { |orgs| orgs.sponsoring_organisations.to_a }.flatten
+      world_location.worldwide_organisations
+        .map { |orgs| orgs.sponsoring_organisations.to_a }.flatten
 
     assert_equal related_organisations, world_location.worldwide_organisations_with_sponsoring_organisations
   end
@@ -101,7 +101,7 @@ class WorldLocationTest < ActiveSupport::TestCase
     location_2 = create(:world_location, world_location_type: delegation_type, name: 'Neverland')
     location_3 = create(:world_location, world_location_type: world_location_type, name: 'Middle Earth')
 
-    assert_equal [[world_location_type, [location_3, location_1]] , [delegation_type, [location_2]]], WorldLocation.all_by_type
+    assert_equal [[world_location_type, [location_3, location_1]], [delegation_type, [location_2]]], WorldLocation.all_by_type
   end
 
   test "#feature_list_for_locale should return the feature list for the given locale, or build one if not" do

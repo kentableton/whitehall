@@ -33,9 +33,9 @@ FactoryGirl.define do
     # and is automatically set on the internal GovspeakContent instance.
     after :build do |attachment, evaluator|
       attachment.build_govspeak_content(
-                   body: evaluator.body,
-                   manually_numbered_headings: evaluator.manually_numbered_headings
-                 )
+        body: evaluator.body,
+        manually_numbered_headings: evaluator.manually_numbered_headings
+      )
     end
   end
 

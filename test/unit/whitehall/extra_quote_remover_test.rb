@@ -86,7 +86,7 @@ module Whitehall
       assert_remover_transforms(
         %{> "line 1\n> \n> "line 2\n> \n> "line 3"} =>
         %{> line 1\n> \n> line 2\n> \n> line 3}
-        )
+      )
     end
 
     test "preserve newlines when there's a blockquote with additional text after" do

@@ -19,7 +19,8 @@ class GroupTest < ActiveSupport::TestCase
   end
 
   test "should be valid if name already exists for another organisation" do
-    organisation, another_organisation = create(:organisation), create(:organisation)
+    organisation = create(:organisation)
+    another_organisation = create(:organisation)
     existing_group = create(:group, organisation: organisation, name: "Defence Council")
     group = build(:group, organisation: another_organisation, name: existing_group.name)
     assert group.valid?

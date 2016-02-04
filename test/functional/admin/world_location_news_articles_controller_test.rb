@@ -35,7 +35,6 @@ class Admin::WorldLocationNewsArticlesControllerTest < ActionController::TestCas
   end
 
   test 'POST :create with a blank locale will create a standard English edition' do
-
     post :create, edition: {  lock_version: 0,
                               title: 'Article title',
                               summary: 'Summary',

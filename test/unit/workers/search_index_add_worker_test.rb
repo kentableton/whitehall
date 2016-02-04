@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class SearchIndexAddWorkerTest < ActiveSupport::TestCase
-
   test '#perform raises an exception if the class is not searchable' do
     class NonSearchableClass; end
 
@@ -17,7 +16,7 @@ class SearchIndexAddWorkerTest < ActiveSupport::TestCase
 
   test '#perform indexes searchable instances' do
     published_publication = create(:published_publication)
-    attributes_for_indexing_mock = mock()
+    attributes_for_indexing_mock = mock
 
     Publication.any_instance.stubs(:search_index).returns(attributes_for_indexing_mock)
     Whitehall::SearchIndex.indexer_class.any_instance.expects(:add).with(attributes_for_indexing_mock)

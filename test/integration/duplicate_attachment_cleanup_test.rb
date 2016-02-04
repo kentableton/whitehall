@@ -3,7 +3,6 @@ require 'fileutils'
 require 'data_hygiene/duplicate_attachment_fixer'
 
 class DuplicateAttachmentCleanupTest < ActiveSupport::TestCase
-
   test "duplicate files are replaced with a renamed copy of themselves" do
     attachable = create(:policy_group)
     attachments = [

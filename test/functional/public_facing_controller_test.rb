@@ -187,7 +187,7 @@ class PublicFacingControllerTest < ActionController::TestCase
     end
   end
 
-  def with_routing_for_test_controller(&block)
+  def with_routing_for_test_controller(&_block)
     with_routing do |map|
       map.draw do
         get '/test/:action(.:format)', controller: 'public_facing_controller_test/test'

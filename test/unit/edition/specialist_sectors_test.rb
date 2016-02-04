@@ -53,7 +53,7 @@ class Edition::SpecialistSectorsTest < ActiveSupport::TestCase
     edition = create(:edition,
       primary_specialist_sector_tag: 'live_super/live_primary',
       secondary_specialist_sector_tags: ['live_super/draft_secondary'],
-    )
+                    )
 
     SpecialistSector.stubs(:live_subsectors).returns([live_tag])
 

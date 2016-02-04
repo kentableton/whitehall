@@ -47,7 +47,7 @@ module AdminControllerTestHelpers
 
         get :edit, id: object
 
-        assert assigns(type).social_media_accounts.all? { |o| o.kind_of? SocialMediaAccount }
+        assert assigns(type).social_media_accounts.all? { |o| o.is_a? SocialMediaAccount }
         assert assigns(type).social_media_accounts.last.new_record?
       end
 

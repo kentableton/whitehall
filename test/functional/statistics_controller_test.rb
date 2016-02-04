@@ -56,7 +56,8 @@ class StatisticsControllerTest < ActionController::TestCase
   end
 
   def given_two_statistics_publications_in_two_topics
-    @topic_1, @topic_2 = create(:topic), create(:topic)
+    @topic_1 = create(:topic)
+    @topic_2 = create(:topic)
     create(:published_statistics, topics: [@topic_1])
     create(:published_national_statistics, topics: [@topic_2])
   end
@@ -171,8 +172,8 @@ class StatisticsControllerTest < ActionController::TestCase
     result = json['results'].first
 
     path = public_document_path(collection)
-    link = %Q{<a href="#{path}">#{collection.title}</a>}
-    assert_equal %Q{Part of a collection: #{link}}, result['publication_collections']
+    link = %{<a href="#{path}">#{collection.title}</a>}
+    assert_equal %{Part of a collection: #{link}}, result['publication_collections']
   end
 
   view_test "index generates an atom feed with entries for statistics matching the current filter" do

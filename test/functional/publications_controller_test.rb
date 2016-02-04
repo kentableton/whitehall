@@ -60,7 +60,7 @@ class PublicationsControllerTest < ActionController::TestCase
     publication = create(:published_publication,
       first_published_at: Date.parse("1916-05-31"),
       publication_type_id: PublicationType::Form.id
-    )
+                        )
 
     get :show, id: publication.document
 
@@ -72,7 +72,7 @@ class PublicationsControllerTest < ActionController::TestCase
     publication = create(:published_publication,
       first_published_at: Date.parse("1916-05-31"),
       publication_type_id: PublicationType::Form.id
-    )
+                        )
 
     get :show, id: publication.document
 
@@ -140,7 +140,8 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test "#index highlights selected world filter options" do
-    @world_location_1, @world_location_2 = create(:world_location), create(:world_location)
+    @world_location_1 = create(:world_location)
+    @world_location_2 = create(:world_location)
     create(:published_publication, world_locations: [@world_location_1])
     create(:published_publication, world_locations: [@world_location_2])
 
@@ -587,8 +588,8 @@ class PublicationsControllerTest < ActionController::TestCase
     result = json['results'].first
 
     path = public_document_path(collection)
-    link = %Q{<a href="#{path}">#{collection.title}</a>}
-    assert_equal %Q{Part of a collection: #{link}}, result['publication_collections']
+    link = %{<a href="#{path}">#{collection.title}</a>}
+    assert_equal %{Part of a collection: #{link}}, result['publication_collections']
   end
 
   view_test "#show displays the ISBN of the attached document" do
@@ -714,10 +715,10 @@ class PublicationsControllerTest < ActionController::TestCase
     refute_select ".translations"
   end
 
-  private
+private
 
   def publication_with_attachment(params = {})
-    type = params.delete(:type) { |key| :file }
+    type = params.delete(:type) { |_key| :file }
     trait = "with_#{type}_attachment".to_sym
     create(:published_publication, trait, body: "!@1").tap do |publication|
       attachment = publication.attachments.first
@@ -726,13 +727,15 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   def given_two_documents_in_two_organisations
-    @organisation_1, @organisation_2 = create(:organisation, type: OrganisationType.ministerial_department), create(:organisation, type: OrganisationType.ministerial_department)
+    @organisation_1 = create(:organisation, type: OrganisationType.ministerial_department)
+    @organisation_2 = create(:organisation, type: OrganisationType.ministerial_department)
     create(:published_publication, organisations: [@organisation_1])
     create(:published_consultation, organisations: [@organisation_2])
   end
 
   def given_two_documents_in_two_topics
-    @topic_1, @topic_2 = create(:topic), create(:topic)
+    @topic_1 = create(:topic)
+    @topic_2 = create(:topic)
     create(:published_publication, topics: [@topic_1])
     create(:published_consultation, topics: [@topic_2])
   end
@@ -740,5 +743,4 @@ class PublicationsControllerTest < ActionController::TestCase
   def create_publications_in(*topics)
     create(:published_publication, topics: [topics])
   end
-
 end

@@ -9,7 +9,7 @@ class Frontend::StatisticsAnnouncementProviderTest < ActiveSupport::TestCase
   test "#search: page and per_page params are converted to strings" do
     @mock_source.expects(:advanced_search).with {|actual|
       actual[:page] == '2' &&
-      actual[:per_page] == '10'
+        actual[:per_page] == '10'
     }.returns({'total' => 0, 'results' => []})
     Frontend::StatisticsAnnouncementProvider.search(page: 2, per_page: 10)
   end
@@ -19,8 +19,8 @@ class Frontend::StatisticsAnnouncementProviderTest < ActiveSupport::TestCase
     to_date = 1.year.from_now
     @mock_source.expects(:advanced_search).with {|actual|
       actual[:release_timestamp] == {from: from_date.iso8601, to: to_date.iso8601} &&
-      actual[:from_date].nil? &&
-      actual[:to_date].nil?
+        actual[:from_date].nil? &&
+        actual[:to_date].nil?
     }.returns({'total' => 0, 'results' => []})
     Frontend::StatisticsAnnouncementProvider.search(from_date: from_date, to_date: to_date, page: 2, per_page: 10)
   end
@@ -83,7 +83,7 @@ class Frontend::StatisticsAnnouncementProviderTest < ActiveSupport::TestCase
   end
 
   test "#search: results are returned in a CollectionPage with the correct total, page and per_page values" do
-    @mock_source.stubs(:advanced_search).returns('total' => 30, 'results' => 10.times.map {|n| {"title" => "A title", "metadata" => {}} })
+    @mock_source.stubs(:advanced_search).returns('total' => 30, 'results' => 10.times.map {|_n| {"title" => "A title", "metadata" => {}} })
 
     results = Frontend::StatisticsAnnouncementProvider.search(page: 2, per_page: 10)
 

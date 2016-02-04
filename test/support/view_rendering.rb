@@ -48,7 +48,7 @@ module ViewRendering
   end
 
   class EmptyTemplateHandler
-    def self.call(template)
+    def self.call(_template)
       %("")
     end
   end
@@ -62,7 +62,7 @@ module ViewRendering
       lookup_context.view_paths.push(*_path_decorator(new_path))
     end
 
-    private
+  private
 
     def _path_decorator(path)
       EmptyTemplatePathSetDecorator.new(ActionView::PathSet.new(Array.wrap(path)))

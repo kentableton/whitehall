@@ -60,7 +60,7 @@ class Admin::FatalityNoticesControllerTest < ActionController::TestCase
       fatality_notice_casualties_attributes: {"0" => {
         personal_details: "Personal details"
       }}
-    )
+                                          )
 
     post :create, edition: attributes
     assert fatality_notice = FatalityNotice.last
@@ -68,7 +68,7 @@ class Admin::FatalityNoticesControllerTest < ActionController::TestCase
     assert_equal "Personal details", fatality_notice_casuality.personal_details
   end
 
-  private
+private
 
   def controller_attributes_for(edition_type, attributes = {})
     super.merge(operational_field_id: create(:operational_field).id)

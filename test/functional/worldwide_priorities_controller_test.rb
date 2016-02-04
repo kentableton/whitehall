@@ -13,7 +13,7 @@ class WorldwidePrioritiesControllerTest < ActionController::TestCase
     priority = create(:published_worldwide_priority,
       title: "priority-title",
       body: "priority-body",
-    )
+                     )
 
     get :show, id: priority.document
 
