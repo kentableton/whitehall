@@ -26,6 +26,7 @@ module DataHygiene
     end
 
   private
+
     attr_reader :organisation, :new_slug, :old_slug
 
     def remove_from_search_index
@@ -43,9 +44,7 @@ module DataHygiene
     end
 
     def update_editions
-      organisation.editions.published.each do |edition|
-        edition.update_in_search_index
-      end
+      organisation.editions.published.each(&:update_in_search_index)
     end
 
     def old_base_path

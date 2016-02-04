@@ -13,7 +13,7 @@ class LogStashLogger < Logger
     # initialize(logdev, shift_age = 0, shift_size = 1048576)
     super(logdev, opts[:shift_age] || 0, opts[:shift_size] || 1048576)
 
-    @progname     = opts[:progname]     || nil
+    @progname     = opts[:progname] || nil
     @default_tags = opts[:default_tags] || []
 
     self.formatter = method(:render_entry)
@@ -22,9 +22,7 @@ class LogStashLogger < Logger
 private
 
   def render_entry(severity, time, progname, log_data)
-    if log_data.is_a? String
-      log_data = {message: log_data}
-    end
+    log_data = {message: log_data} if log_data.is_a? String
 
     log_data = log_data.symbolize_keys
     message = log_data.delete(:message) || ''

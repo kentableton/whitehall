@@ -32,11 +32,11 @@ module Whitehall
 
     def csv_row_for(checker)
       [checker.public_url,
-        checker.admin_url,
-        checker.timestamp,
-        checker.edition_type,
-        checker.broken_links.size,
-        checker.broken_links.join("\r\n")]
+       checker.admin_url,
+       checker.timestamp,
+       checker.edition_type,
+       checker.broken_links.size,
+       checker.broken_links.join("\r\n")]
     end
 
     def csv_for_organisation(organisation)
@@ -125,9 +125,8 @@ module Whitehall
       end
 
     private
-      def csv
-        @csv
-      end
+
+      attr_reader :csv
 
       def headings
         ["page", "admin link", "public timestamp", "format", "broken link count", "broken links"]

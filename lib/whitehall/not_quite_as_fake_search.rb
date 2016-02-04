@@ -14,18 +14,17 @@ module Whitehall
     end
 
     class GdsApiRummager
-
       def initialize(index_name, store, field_mappings = nil)
         @index_name = index_name
         @field_mappings = field_mappings || default_field_mappings
         @store = store
       end
 
-      def search(*args)
+      def search(*_args)
         raise "Not implemented"
       end
 
-      def autocomplete(*args)
+      def autocomplete(*_args)
         raise "Not implemented"
       end
 
@@ -42,6 +41,7 @@ module Whitehall
       end
 
     private
+
       def default_field_mappings
         {
           simple: %w{
@@ -89,9 +89,7 @@ module Whitehall
             raise GdsApi::HTTPErrorResponse, "cannot filter by field '#{field_name}', its type is not known"
           end
         end
-        if order && order.any?
-          results = Ordering.new(order).sort(results)
-        end
+        results = Ordering.new(order).sort(results) if order && order.any?
         {
           "total" => results.count,
           "results" => paginate(results, per_page, page)
@@ -210,12 +208,13 @@ module Whitehall
       end
 
     private
+
       def normalize(document)
         document = document.stringify_keys
         document.each_with_object({}) do |(k, v), memo|
           memo[k] = case v
-          when String, Array, Fixnum, TrueClass, FalseClass then v
-          else v.to_s
+                    when String, Array, Fixnum, TrueClass, FalseClass then v
+                    else v.to_s
           end
         end
       end

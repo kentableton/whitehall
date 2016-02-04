@@ -58,7 +58,7 @@ namespace :detailed_guides do
           elsif route["handler"] == "redirect"
             row << route["redirect_to"]
           elsif route["handler"] == "gone"
-          row << "gone"
+            row << "gone"
           elsif route["handler"] == "backend"
             row << route["backend_id"]
           end
@@ -109,14 +109,14 @@ namespace :detailed_guides do
         Unpublishing.from_slug(slug, "DetailedGuide")
 
       path = "/#{slug}"
-      puts "Processing #{path} #{i+=1}/#{count}"
+      puts "Processing #{path} #{i += 1}/#{count}"
 
       if published_edition || (unpublishing && !unpublishing.redirect?)
         edition = published_edition || unpublishing.edition
         paths = edition.translated_locales.map do |locale|
           "/#{slug}.#{locale}".chomp(".en")
         end
-        puts "Redirecting #{paths.join(", ")} to new namespace"
+        puts "Redirecting #{paths.join(', ')} to new namespace"
         redirects = Hash[paths.map { |path| [path, "/guidance#{path}"] }]
         publish_redirects(slug, redirects)
       elsif unpublishing && unpublishing.redirect?
@@ -124,7 +124,7 @@ namespace :detailed_guides do
           "/#{slug}.#{locale}".chomp(".en")
         end
         alternative_path = Addressable::URI.parse(unpublishing.alternative_url).path
-        puts "Redirecting #{paths.join(", ")} to #{alternative_path}"
+        puts "Redirecting #{paths.join(', ')} to #{alternative_path}"
         redirects = Hash[paths.map { |path| [path, alternative_path] }]
         publish_redirects(slug, redirects)
       else

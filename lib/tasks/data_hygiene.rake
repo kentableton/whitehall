@@ -1,13 +1,13 @@
 namespace :db do
   desc "Report any data integrity issues"
-  task :lint => :environment do
+  task lint: :environment do
     require 'data_hygiene/orphaned_attachment_finder'
     o = DataHygiene::OrphanedAttachmentFinder.new
     $stderr.puts o.summarize_by_type
   end
 end
 
-task :specialist_sector_cleanup => :environment do
+task specialist_sector_cleanup: :environment do
   require "data_hygiene/specialist_sector_cleanup"
 
   puts "Which specialist sector is being deleted?"
@@ -57,7 +57,7 @@ task topic_retagging_csv_export: :environment do
     exit 1
   end
 
-  if File.exists?(csv_location)
+  if File.exist?(csv_location)
     $stderr.puts "Specified output file already exists; please remove it, or choose a different location"
     exit 1
   end
@@ -123,6 +123,6 @@ task process_policy_tagging_csv: :environment do
 end
 
 desc "Unwithdraw an edition (creates and publishes a draft with audit trail)"
-task :unwithdraw_edition, [:edition_id] => :environment do |t,args|
+task :unwithdraw_edition, [:edition_id] => :environment do |_t, args|
   DataHygiene::EditionUnwithdrawer.new(args[:edition_id], Logger.new(STDOUT)).unwithdraw!
 end

@@ -1,6 +1,7 @@
 module Whitehall::Authority::Rules
   class WorldEditionRules < Whitehall::Authority::Rules::EditionRules
-    protected
+  protected
+
     def actor_can_handle_world_editions?
       if actor.gds_editor?
         true

@@ -28,7 +28,7 @@ module Whitehall::DocumentFilter
       paginate!
     end
 
-    private
+  private
 
     def filter_by_locale!
       @documents = @documents.with_translations(locale) if locale
@@ -53,12 +53,8 @@ module Whitehall::DocumentFilter
     end
 
     def filter_by_date!
-      if @from_date.present?
-        @documents = @documents.published_after(@from_date)
-      end
-      if @to_date.present?
-        @documents = @documents.published_before(@to_date)
-      end
+      @documents = @documents.published_after(@from_date) if @from_date.present?
+      @documents = @documents.published_before(@to_date) if @to_date.present?
     end
 
     def filter_by_publication_filter_option!
@@ -79,7 +75,7 @@ module Whitehall::DocumentFilter
     def filter_by_announcement_filter_option!
       if selected_announcement_filter_option
         @documents = @documents.where(@documents.arel_table[:type].in(
-          selected_announcement_filter_option.edition_types))
+                                        selected_announcement_filter_option.edition_types))
         if selected_announcement_filter_option.speech_types.present?
           @documents = @documents.where(
             @documents.arel_table[:speech_type_id].in(

@@ -3,7 +3,6 @@ require 'address_formatter/text'
 
 module AddressFormatter
   class Json < Formatter
-
     def render(type = nil)
       {
         'address' => {
@@ -13,7 +12,8 @@ module AddressFormatter
       }
     end
 
-    private
+  private
+
     def get_address_as_adr_value(type)
       add_optional_type_key(type, Formatter.property_keys.inject({}) do |adr, key|
         value = properties[key]

@@ -1,5 +1,5 @@
 desc "Takes a file containing a list of filter page urls and outputs the descriptions of the filter options"
-task :describe_filters, [:topic_list_csv] => :environment do |t, args|
+task :describe_filters, [:topic_list_csv] => :environment do |_t, args|
   require 'rack'
   require 'json'
 
@@ -17,12 +17,12 @@ task :describe_filters, [:topic_list_csv] => :environment do |t, args|
     params['topics'] = params['topics'].map {|t| t.split(";")}.flatten
     params[:action] = "index"
     params[:controller] = case uri.path
-    when "/government/publications.atom"
-      "publications"
-    when "/government/announcements.atom"
-      "announcements"
-    else
-      raise "Unexpected uri: #{uri}"
+                          when "/government/publications.atom"
+                            "publications"
+                          when "/government/announcements.atom"
+                            "announcements"
+                          else
+                            raise "Unexpected uri: #{uri}"
     end
 
     params
@@ -42,7 +42,7 @@ task :describe_filters, [:topic_list_csv] => :environment do |t, args|
     }
   end
 
-  File.open(args[:topic_list_csv]).each_line.with_index do |line, i|
+  File.open(args[:topic_list_csv]).each_line.with_index do |line, _i|
     next unless line =~ /^http/
     params = parse_params(line)
     puts describe(params).reverse_merge(url: line.strip).to_json

@@ -4,12 +4,12 @@ namespace :publishing_api do
   namespace :draft do
     namespace :populate do
       desc "export all whitehall content to draft environment of publishing api"
-      task :all => :environment do
+      task all: :environment do
         Whitehall::PublishingApi::DraftEnvironmentPopulator.new(logger: Logger.new(STDOUT)).call
       end
 
       desc "export Case studies to draft environment of publishing api"
-      task :case_studies => :environment do
+      task case_studies: :environment do
         Whitehall::PublishingApi::DraftEnvironmentPopulator.new(items: CaseStudy.latest_edition.find_each, logger: Logger.new(STDOUT)).call
       end
     end
@@ -18,11 +18,11 @@ namespace :publishing_api do
   namespace :live do
     namespace :populate do
       desc "export all published whitehall content to live environment of publishing api"
-      task :all => :environment do
+      task all: :environment do
         Whitehall::PublishingApi::LiveEnvironmentPopulator.new(logger: Logger.new(STDOUT)).call
       end
 
-      task :case_studies => :environment do
+      task case_studies: :environment do
         Whitehall::PublishingApi::LiveEnvironmentPopulator.new(items: CaseStudy.latest_published_edition.find_each, logger: Logger.new(STDOUT)).call
       end
     end
@@ -30,7 +30,7 @@ namespace :publishing_api do
 
   namespace :republish do
     desc "republish non-edition content to the Publishing API (model_class_name example: TakePartPage)"
-    task :non_editions, [:model_class_name] => :environment do |t, args|
+    task :non_editions, [:model_class_name] => :environment do |_t, args|
       model = args[:model_class_name].constantize
       model.all.find_each do |instance|
         Whitehall::PublishingApi.republish_async(instance)
@@ -39,7 +39,7 @@ namespace :publishing_api do
     end
 
     desc "generate content ids for non-edition content prior to publishing"
-    task :add_content_ids, [:model_class_name] => :environment do |t, args|
+    task :add_content_ids, [:model_class_name] => :environment do |_t, args|
       model = args[:model_class_name].constantize
       model.all.find_each do |instance|
         instance.update_column(:content_id, SecureRandom.uuid) unless instance.content_id
@@ -70,12 +70,12 @@ namespace :publishing_api do
       },
     ].each do |route|
       publisher.publish(route.merge(
-        format: "special_route",
-        publishing_app: "whitehall",
-        rendering_app: "whitehall-frontend",
-        update_type: "major",
-        type: "prefix",
-        public_updated_at: Time.zone.now.iso8601,
+                          format: "special_route",
+                          publishing_app: "whitehall",
+                          rendering_app: "whitehall-frontend",
+                          update_type: "major",
+                          type: "prefix",
+                          public_updated_at: Time.zone.now.iso8601,
       ))
     end
   end

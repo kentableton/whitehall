@@ -1,5 +1,5 @@
 namespace :test do
-  Rake::TestTask.new(:presenters => "test:prepare") do |t|
+  Rake::TestTask.new(presenters: "test:prepare") do |t|
     t.libs << 'test'
     t.test_files = FileList['test/unit/presenters/**/*_test.rb']
   end

@@ -30,16 +30,14 @@ module Whitehall
   mattr_accessor :case_study_preview_host
 
   revision_file = "#{Rails.root}/REVISION"
-  if File.exists?(revision_file)
+  if File.exist?(revision_file)
     CURRENT_RELEASE_SHA = File.read(revision_file).chomp
   else
     CURRENT_RELEASE_SHA = "development"
   end
 
   asset_host_override = Rails.root.join("config/initializers/asset_host.rb")
-  if File.exist?(asset_host_override)
-    load asset_host_override
-  end
+  load asset_host_override if File.exist?(asset_host_override)
 
   class NoConfigurationError < StandardError; end
 
@@ -73,7 +71,7 @@ module Whitehall
   end
 
   def self.admin_host
-    @admin_host ||=  URI(admin_root).host
+    @admin_host ||= URI(admin_root).host
   end
 
   def self.public_host
@@ -215,7 +213,7 @@ module Whitehall
   end
 
   def self.load_secrets
-    if File.exists?(secrets_path)
+    if File.exist?(secrets_path)
       YAML.load_file(secrets_path)
     else
       {}

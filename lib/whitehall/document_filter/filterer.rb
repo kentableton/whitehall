@@ -15,7 +15,7 @@ module Whitehall::DocumentFilter
       @keywords        = params[:keywords]
       @locale          = params[:locale]
 
-      @include_world_location_news  = params[:include_world_location_news]
+      @include_world_location_news = params[:include_world_location_news]
 
       @topics          = Array(@params[:topics])
       @departments     = Array(@params[:departments])
@@ -86,14 +86,14 @@ module Whitehall::DocumentFilter
       @include_world_location_news.to_s == '1'
     end
 
-    private
+  private
 
     def find_by_slug(klass, slugs)
       @selected ||= {}
       @selected[klass] ||= if slugs.present? && !slugs.include?("all")
-        klass.where(slug: slugs)
-      else
-        []
+                             klass.where(slug: slugs)
+                           else
+                             []
       end
     end
 

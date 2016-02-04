@@ -5,7 +5,7 @@ namespace :panopticon do
   require 'gds_api/panopticon'
 
   desc "Register application metadata with Panopticon"
-  task :register => :environment do
+  task register: :environment do
     logger = GdsApi::Base.logger = Logger.new(STDERR).tap { |l| l.level = Logger::INFO }
 
     registerer = GdsApi::Panopticon::Registerer.new(owning_app: 'whitehall', rendering_app: 'whitehall-frontend')
@@ -22,7 +22,7 @@ namespace :panopticon do
   end
 
   desc "Register detailed guides with Panopticon"
-  task :register_guidance => :environment do
+  task register_guidance: :environment do
     logger = GdsApi::Base.logger = Logger.new(STDERR).tap { |l| l.level = Logger::INFO }
     logger.info "Registering detailed guides with Panopticon..."
     registerer = GdsApi::Panopticon::Registerer.new(owning_app: 'whitehall', rendering_app: 'whitehall-frontend', kind: 'detailed_guide')
@@ -40,7 +40,7 @@ namespace :panopticon do
   end
 
   desc "Register all content for a specialist sector with Panopticon"
-  task :register_specialist_sector_content => :environment do
+  task register_specialist_sector_content: :environment do
     logger = GdsApi::Base.logger = Logger.new(STDERR).tap { |l| l.level = Logger::INFO }
 
     unless ENV["TAG"].present?
@@ -68,7 +68,7 @@ namespace :panopticon do
   end
 
   desc "Re-register unpublished content with Panopticon"
-  task :re_register_unpublished_content => :environment do
+  task re_register_unpublished_content: :environment do
     logger = GdsApi::Base.logger = Logger.new(STDERR).tap { |l| l.level = Logger::INFO }
 
     registerable_editions = RegisterableEditionBuilderForUnpublishedEditions.build
@@ -87,7 +87,7 @@ namespace :panopticon do
   end
 
   desc "Re-register published editions with Panopticon"
-  task :re_register_published_editions => :environment do
+  task re_register_published_editions: :environment do
     logger = GdsApi::Base.logger = Logger.new(STDERR).tap { |l| l.level = Logger::INFO }
 
     documents = Document.all.published
@@ -95,7 +95,6 @@ namespace :panopticon do
     unregistered_documents = []
 
     documents.find_each do |document|
-
       if edition = document.published_edition
         artefact = RegisterableEdition.new(edition)
         registerer = GdsApi::Panopticon::Registerer.new(owning_app: 'whitehall', rendering_app: 'whitehall-frontend', kind: artefact.kind)

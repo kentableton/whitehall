@@ -10,7 +10,7 @@ task :generate_broken_link_reports, [:reports_dir, :email_address] => [:environm
     logger.info("Cleaning up any existing reports.")
     FileUtils.mkpath reports_dir
     FileUtils.rm Dir.glob(reports_dir + '/*_broken_links.csv')
-    FileUtils.rm(report_zip_path) if File.exists?(report_zip_path)
+    FileUtils.rm(report_zip_path) if File.exist?(report_zip_path)
 
     logger.info("Generating broken link reports...")
     Whitehall::BrokenLinkReporter.new(reports_dir, logger).generate_reports

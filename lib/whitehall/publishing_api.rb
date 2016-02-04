@@ -10,7 +10,7 @@ module Whitehall
   class UnpublishableInstanceError < StandardError; end
 
   class PublishingApi
-    def self.publish_async(model_instance, update_type_override=nil, queue_override=nil)
+    def self.publish_async(model_instance, update_type_override = nil, queue_override = nil)
       push_live(model_instance, update_type_override, queue_override)
     end
 
@@ -79,7 +79,7 @@ module Whitehall
       end
     end
 
-    def self.push_live(model_instance, update_type_override=nil, queue_override=nil)
+    def self.push_live(model_instance, update_type_override = nil, queue_override = nil)
       return if skip_sending_to_content_store?(model_instance)
       self.assert_public_edition!(model_instance)
       locales_for(model_instance).each do |locale|
@@ -99,11 +99,11 @@ module Whitehall
     end
 
     def self.unpublishing_not_served_from_content_store?(instance)
-      instance.kind_of?(Unpublishing) && !served_from_content_store?(instance.edition)
+      instance.is_a?(Unpublishing) && !served_from_content_store?(instance.edition)
     end
 
     def self.assert_public_edition!(instance)
-      if instance.kind_of?(Edition) && !instance.publicly_visible?
+      if instance.is_a?(Edition) && !instance.publicly_visible?
         raise UnpublishableInstanceError, "#{instance.class} with ID #{instance.id} is not publishable"
       end
     end

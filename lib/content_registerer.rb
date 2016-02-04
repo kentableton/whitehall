@@ -1,5 +1,5 @@
 class ContentRegisterer
-  def initialize(scope, logger=NullLogger.instance)
+  def initialize(scope, logger = NullLogger.instance)
     @scope = scope
     @logger = logger
   end
@@ -16,6 +16,7 @@ class ContentRegisterer
   end
 
 private
+
   attr_accessor :logger, :scope
 
   def register_entry(instance)
