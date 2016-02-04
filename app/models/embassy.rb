@@ -7,9 +7,18 @@ class Embassy
 
   def_delegator :@world_location, :name
 
-  def self.filter_offices(worldwide_organisation)
-    worldwide_organisation.offices.select { |o| embassy_high_commission_or_consulate?(o) }
+  class << self
+    def filter_offices(worldwide_organisation)
+      worldwide_organisation.offices.select { |o| embassy_high_commission_or_consulate?(o) }
+    end
+
+  private
+
+    def self.embassy_high_commission_or_consulate?(office)
+      ["Embassy", "Consulate", "High Commission"].include?(office.worldwide_office_type.name)
+    end
   end
+
 
   def offices
     @world_location.worldwide_organisations.map { |org| self.class.filter_offices(org) }.flatten
@@ -27,11 +36,5 @@ class Embassy
     unless countries.empty? || countries.include?(@world_location)
       countries.first
     end
-  end
-
-private
-
-  def self.embassy_high_commission_or_consulate?(office)
-    ["Embassy", "Consulate", "High Commission"].include?(office.worldwide_office_type.name)
   end
 end

@@ -114,7 +114,7 @@ class AttachableTest < ActiveSupport::TestCase
                         )
     ])
 
-    index = edition.attachments.to_a.index { |attachment| attachment.is_a?(FileAttachment) }
+    index = edition.attachments.to_a.index { |a| a.is_a?(FileAttachment) }
 
     assert_equal "The title of the attachment", edition.search_index['attachments'][index][:title]
     assert_equal attachment.isbn, edition.search_index['attachments'][index][:isbn]

@@ -49,9 +49,10 @@ class HackableUrlTest < ActiveSupport::TestCase
 
   def all_possible_hackings_of(path)
     parts = path.ast.to_s.split("/")
-    (1...parts.size).map do |num_parts|
+    hackings = (1...parts.size).map do |num_parts|
       parts[0...num_parts].join("/")
-    end.reject(&:empty?)
+    end
+    hackings.reject(&:empty?)
   end
 
   def assert_path_recognized(path, message)

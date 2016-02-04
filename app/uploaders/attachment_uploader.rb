@@ -162,7 +162,7 @@ class AttachmentUploader < WhitehallUploader
       def each_shape_has_only_one_of_each_allowed_file?
         files_by_shape_and_allowed_extension.all? do |_shape, files|
           files.
-            select { |_ext, files| files.size > 1 }.
+            select { |_ext, ext_files| ext_files.size > 1 }.
             empty?
         end
       end
@@ -171,7 +171,7 @@ class AttachmentUploader < WhitehallUploader
         files_by_shape_and_allowed_extension.all? do |_shape, files|
           files.
             select { |ext, _files| REQUIRED_EXTS.include? ext }.
-            reject { |_ext, files| files.size > 1 }.
+            reject { |_ext, ext_files| ext_files.size > 1 }.
             keys.sort == REQUIRED_EXTS.sort
         end
       end
