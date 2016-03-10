@@ -2,6 +2,7 @@ require 'test_helper'
 
 module Whitehall
   class SearchIndexTest < ActiveSupport::TestCase
+    allow_search_indexing!
     class ::SearchableClass
     end
 

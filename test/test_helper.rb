@@ -41,6 +41,8 @@ class ActiveSupport::TestCase
   setup do
     Timecop.freeze(2011, 11, 11, 11, 11, 11)
     Whitehall.search_backend = Whitehall::DocumentFilter::FakeSearch
+    Whitehall::SearchIndex.stubs(:add)
+    Whitehall::SearchIndex.stubs(:delete)
     VirusScanHelpers.erase_test_files
     Sidekiq::Worker.clear_all
     fake_whodunnit = FactoryGirl.build(:user)
@@ -103,6 +105,13 @@ class ActiveSupport::TestCase
     end
   end
 
+  def self.allow_search_indexing!
+    setup do
+      Whitehall::SearchIndex.unstub(:add)
+      Whitehall::SearchIndex.unstub(:delete)
+    end
+  end
+
   def self.class_for(document_type)
     document_type.to_s.classify.constantize
   end
@@ -116,6 +125,7 @@ class ActiveSupport::TestCase
   end
 
   def self.with_not_quite_as_fake_search
+    allow_search_indexing!
     setup do
       Whitehall::NotQuiteAsFakeSearch.stop_faking_it_quite_so_much!
     end
