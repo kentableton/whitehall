@@ -105,14 +105,14 @@ class AttachmentVisibility
   end
 
   def visible_policy_group_scope
-    PolicyGroup.joins(:attachments).where(attachments: { attachment_data_id: id })
+    PolicyGroup.joins(:attachments).where(attachments: { attachment_data_id: id, deleted: false })
   end
 
   def consultation_ids
-    @consultation_ids ||= Response.joins(:attachments).where(attachments: { attachment_data_id: id }).pluck(:edition_id)
+    @consultation_ids ||= Response.joins(:attachments).where(attachments: { attachment_data_id: id, deleted: false }).pluck(:edition_id)
   end
 
   def edition_ids
-    @edition_ids ||= Attachment.where(attachment_data_id: id).where(attachable_type: 'Edition').pluck(:attachable_id)
+    @edition_ids ||= Attachment.not_deleted.where(attachment_data_id: id).where(attachable_type: 'Edition').pluck(:attachable_id)
   end
 end
