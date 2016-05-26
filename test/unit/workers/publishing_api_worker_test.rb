@@ -60,8 +60,8 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
     edition = create(:published_detailed_guide)
     presenter = PublishingApiPresenters.presenter_for(edition, update_type: update_type)
     requests = [
-      stub_publishing_api_put_content(presenter.content_id, presenter.content),
-      stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
+      stub_publishing_api_put_content(presenter.content_id, presenter.content.merge(bulk_publishing: true)),
+      stub_publishing_api_patch_links(presenter.content_id, links: presenter.links, bulk_publishing: true),
       stub_publishing_api_publish(presenter.content_id, update_type: update_type, locale: "en")
     ]
 
