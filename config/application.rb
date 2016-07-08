@@ -21,7 +21,6 @@ module Whitehall
 
     # Custom directories with classes and modules you want to be autoloadable.
     config.autoload_paths += %W(
-      #{config.root}/app/presenters
       #{config.root}/app/services
       #{config.root}/app/uploaders
       #{config.root}/app/validators
