@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class PublishingApiPresenters::PublicationTest < ActiveSupport::TestCase
+class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
   def present(edition)
-    PublishingApiPresenters::Publication.new(edition)
+    PublishingApi::PublicationPresenter.new(edition)
   end
 
   test "publication presentation includes the correct values" do

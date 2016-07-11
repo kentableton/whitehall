@@ -1,7 +1,7 @@
 require "securerandom"
 
 module PublishingApi
-  class StatisticsAnnouncementRedirect
+  class StatisticsAnnouncementRedirectPresenter
     extend Forwardable
     def_delegators :item, :base_path, :publication
 

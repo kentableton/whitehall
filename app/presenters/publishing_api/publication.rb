@@ -1,5 +1,5 @@
 module PublishingApi
-  class Publication
+  class PublicationPresenter
     include UpdateTypeHelper
 
     attr_accessor :item

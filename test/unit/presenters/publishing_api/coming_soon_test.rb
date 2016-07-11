@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'securerandom'
 
-class PublishingApiPresenters::ComingSoonTest < ActiveSupport::TestCase
+class PublishingApi::ComingSoonPresenterTest < ActiveSupport::TestCase
   setup do
     @publish_timestamp = 1.day.from_now
     @content_id = SecureRandom.uuid
@@ -32,7 +32,7 @@ class PublishingApiPresenters::ComingSoonTest < ActiveSupport::TestCase
       public_updated_at: @edition.updated_at,
     }
 
-    presenter = PublishingApiPresenters::ComingSoon.new(@edition)
+    presenter = PublishingApi::ComingSoonPresenter.new(@edition)
 
     assert_equal expected_hash, presenter.content
     assert_equal @content_id, presenter.content_id

@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class PublishingApiPresenters::PolicyAreaPlaceholderTest < ActionView::TestCase
+class PublishingApi::PolicyAreaPlaceholderPresenterTest < ActionView::TestCase
   def present(model_instance, options = {})
-    PublishingApiPresenters::PolicyAreaPlaceholder.new(model_instance, options)
+    PublishingApi::PolicyAreaPlaceholderPresenter.new(model_instance, options)
   end
 
   test 'presents a policy area ready for adding to the publishing API' do

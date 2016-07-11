@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class PublishingApiPresenters::PersonTest < ActiveSupport::TestCase
+class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
   def present(model_instance, options = {})
-    PublishingApiPresenters::Person.new(model_instance, options)
+    PublishingApi::PersonPresenter.new(model_instance, options)
   end
 
   test 'presents a Person ready for adding to the publishing API' do

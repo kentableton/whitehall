@@ -1,5 +1,5 @@
 module PublishingApi
-  class Person
+  class PersonPresenter
     attr_accessor :item
     attr_accessor :update_type
 

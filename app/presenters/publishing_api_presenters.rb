@@ -20,25 +20,25 @@ private
     when TakePartPage
       PublishingApiPresenters::TakePart
     when Topic
-      PublishingApiPresenters::PolicyAreaPlaceholder
+      PublishingApi::PolicyAreaPlaceholderPresenter
     when ::Organisation
-      PublishingApiPresenters::Organisation
+      PublishingApi::OrganisationPresenter
     when ::TopicalEvent
       PublishingApiPresenters::TopicalEvent
     when ::StatisticsAnnouncement
       if model.requires_redirect?
-        PublishingApiPresenters::StatisticsAnnouncementRedirect
+        PublishingApi::StatisticsAnnouncementPresenterRedirect
       else
-        PublishingApiPresenters::StatisticsAnnouncement
+        PublishingApi::StatisticsAnnouncementPresenter
       end
     when ::HtmlAttachment
-      PublishingApiPresenters::HtmlAttachment
+      PublishingApi::HtmlAttachmentPresenter
     when ::Person
-      PublishingApiPresenters::Person
+      PublishingApi::PersonPresenter
     when ::WorldLocation
       PublishingApiPresenters::WorldLocation
     when ::MinisterialRole
-      PublishingApiPresenters::MinisterialRole
+      PublishingApi::MinisterialRolePresenter
     when ::WorldwideOrganisation
       PublishingApiPresenters::WorldwideOrganisation
     else
@@ -49,20 +49,20 @@ private
   def self.presenter_class_for_edition(edition)
     case edition
     when ::CaseStudy
-      PublishingApiPresenters::CaseStudy
+      PublishingApi::CaseStudyPresenter
     when ::DocumentCollection
-      PublishingApiPresenters::DocumentCollectionPlaceholder
+      PublishingApi::DocumentCollectionPlaceholderPresenter
     when ::DetailedGuide
-      PublishingApiPresenters::DetailedGuide
+      PublishingApi::DetailedGuidePresenter
     when ::Publication
-      PublishingApiPresenters::Publication
+      PublishingApi::PublicationPresenter
     else
       # This is a catch-all clause for the following classes:
       # NewsArticle, WorldLocationNewsArticle, Speech, CorporateInformationPage,
       # Consultations, StatisticalDataSet
       # The presenter implementation for all of these models is identical and
       # the structure of the presented payload is the same.
-      PublishingApiPresenters::GenericEdition
+      PublishingApi::GenericEditionPresenter
     end
   end
 end

@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
+class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
   def present(edition)
-    PublishingApiPresenters::CaseStudy.new(edition)
+    PublishingApi::CaseStudyPresenter.new(edition)
   end
 
   test "case study presentation includes the correct values" do

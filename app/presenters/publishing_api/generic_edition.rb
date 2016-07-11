@@ -1,5 +1,5 @@
 module PublishingApi
-  class GenericEdition
+  class GenericEditionPresenter
     include UpdateTypeHelper
 
     attr_accessor :item

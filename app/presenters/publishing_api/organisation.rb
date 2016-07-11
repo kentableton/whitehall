@@ -1,5 +1,5 @@
 module PublishingApi
-  class Organisation
+  class OrganisationPresenter
     include ApplicationHelper
 
     attr_accessor :item

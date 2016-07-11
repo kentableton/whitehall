@@ -1,7 +1,7 @@
 require 'test_helper'
 
-class PublishingApiPresenters::LinksPresenterTest < ActionView::TestCase
-  ALL_LINK_TYPES = PublishingApiPresenters::LinksPresenter::LINK_NAMES_TO_METHODS_MAP.keys
+class PublishingApi::LinksPresenterTest < ActionView::TestCase
+  ALL_LINK_TYPES = PublishingApi::LinksPresenter::LINK_NAMES_TO_METHODS_MAP.keys
 
   def links_for(item, filter_links = ALL_LINK_TYPES)
     LinksPresenter.new(item).extract(filter_links)

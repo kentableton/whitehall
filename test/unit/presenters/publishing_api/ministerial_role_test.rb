@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class PublishingApiPresenters::MinisterialRoleTest < ActiveSupport::TestCase
+class PublishingApi::MinisterialRolePresenterTest < ActiveSupport::TestCase
   def present(model_instance, options = {})
-    PublishingApiPresenters::MinisterialRole.new(model_instance, options)
+    PublishingApi::MinisterialRolePresenter.new(model_instance, options)
   end
 
   test 'presents a Ministerial Role ready for adding to the publishing API' do

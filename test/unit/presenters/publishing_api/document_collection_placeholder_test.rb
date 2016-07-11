@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class PublishingApiPresenters::DocumentCollectionPlaceholderTest < ActiveSupport::TestCase
+class PublishingApi::DocumentCollectionPlaceholderPresenterTest < ActiveSupport::TestCase
   def present(model_instance, options = {})
-    PublishingApiPresenters::DocumentCollectionPlaceholder.new(model_instance, options)
+    PublishingApi::DocumentCollectionPlaceholderPresenter.new(model_instance, options)
   end
 
   test 'presents a placeholder_document_collection ready for adding to the publishing API' do

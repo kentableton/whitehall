@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class PublishingApiPresenters::StatisticsAnnouncementTest < ActiveSupport::TestCase
+class PublishingApi::StatisticsAnnouncementPresenterTest < ActiveSupport::TestCase
   def present(record)
-    PublishingApiPresenters::StatisticsAnnouncement.new(record)
+    PublishingApi::StatisticsAnnouncementPresenter.new(record)
   end
 
   test "a scheduled statistics announcement presents the correct values" do

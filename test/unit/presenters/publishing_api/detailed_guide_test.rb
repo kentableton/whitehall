@@ -1,11 +1,11 @@
 require "test_helper"
 require 'gds_api/test_helpers/publishing_api_v2'
 
-class PublishingApiPresenters::DetailedGuideTest < ActiveSupport::TestCase
+class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::PublishingApiV2
 
   def present(edition)
-    PublishingApiPresenters::DetailedGuide.new(edition)
+    PublishingApi::DetailedGuidePresenter.new(edition)
   end
 
   test "DetailedGuide presenter passes schema tests" do

@@ -1,6 +1,6 @@
 module PublishingApi
   # Note that "Policy Area" is the new name for "Topic".
-  class PolicyAreaPlaceholder
+  class PolicyAreaPlaceholderPresenter
     attr_accessor :item
     attr_accessor :update_type
 

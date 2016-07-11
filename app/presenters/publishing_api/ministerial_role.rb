@@ -1,5 +1,5 @@
 module PublishingApi
-  class MinisterialRole
+  class MinisterialRolePresenter
     attr_accessor :item
     attr_accessor :update_type
 

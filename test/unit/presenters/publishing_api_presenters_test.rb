@@ -5,14 +5,14 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     case_study = CaseStudy.new
     presenter = PublishingApiPresenters.presenter_for(case_study)
 
-    assert_equal PublishingApiPresenters::CaseStudy, presenter.class
+    assert_equal PublishingApi::CaseStudyPresenter, presenter.class
   end
 
   test ".presenter_for returns a presenter for a detailed guide" do
     detailed_guide = DetailedGuide.new
     presenter = PublishingApiPresenters.presenter_for(detailed_guide)
 
-    assert_equal PublishingApiPresenters::DetailedGuide, presenter.class
+    assert_equal PublishingApi::DetailedGuidePresenter, presenter.class
   end
 
   test ".presenter_for returns a presenter for a Take Part page" do
@@ -26,7 +26,7 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     statistics_announcement = StatisticsAnnouncement.new
     presenter = PublishingApiPresenters.presenter_for(statistics_announcement)
 
-    assert_equal PublishingApiPresenters::StatisticsAnnouncement, presenter.class
+    assert_equal PublishingApi::StatisticsAnnouncementPresenter, presenter.class
   end
 
   test ".presenter_for returns a redirect presenter for a
@@ -35,7 +35,7 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
 
     presenter = PublishingApiPresenters.presenter_for(statistics_announcement)
 
-    assert_equal PublishingApiPresenters::StatisticsAnnouncementRedirect, presenter.class
+    assert_equal PublishingApi::StatisticsAnnouncementPresenterRedirect, presenter.class
   end
 
   test ".presenter_for returns an Unpublishing presenter for an Unpublishing" do
@@ -46,25 +46,25 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
   end
 
   test ".presenter_for returns a Generic Edition presenter for all models without a presenter class" do
-    assert_equal PublishingApiPresenters::GenericEdition,
+    assert_equal PublishingApi::GenericEditionPresenter,
       PublishingApiPresenters.presenter_for(GenericEdition.new).class
 
-    assert_equal PublishingApiPresenters::GenericEdition,
+    assert_equal PublishingApi::GenericEditionPresenter,
       PublishingApiPresenters.presenter_for(NewsArticle.new).class
 
-    assert_equal PublishingApiPresenters::GenericEdition,
+    assert_equal PublishingApi::GenericEditionPresenter,
       PublishingApiPresenters.presenter_for(WorldLocationNewsArticle.new).class
 
-    assert_equal PublishingApiPresenters::GenericEdition,
+    assert_equal PublishingApi::GenericEditionPresenter,
       PublishingApiPresenters.presenter_for(Speech.new).class
 
-    assert_equal PublishingApiPresenters::GenericEdition,
+    assert_equal PublishingApi::GenericEditionPresenter,
       PublishingApiPresenters.presenter_for(CorporateInformationPage.new).class
 
-    assert_equal PublishingApiPresenters::GenericEdition,
+    assert_equal PublishingApi::GenericEditionPresenter,
       PublishingApiPresenters.presenter_for(Consultation.new).class
 
-    assert_equal PublishingApiPresenters::GenericEdition,
+    assert_equal PublishingApi::GenericEditionPresenter,
       PublishingApiPresenters.presenter_for(StatisticalDataSet.new).class
   end
 
@@ -72,14 +72,14 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     organisation = Organisation.new
     presenter = PublishingApiPresenters.presenter_for(organisation)
 
-    assert_equal PublishingApiPresenters::Organisation, presenter.class
+    assert_equal PublishingApi::OrganisationPresenter, presenter.class
   end
 
   test ".presenter_for returns a Person presenter for a person" do
     person = Person.new
     presenter = PublishingApiPresenters.presenter_for(person)
 
-    assert_equal PublishingApiPresenters::Person, presenter.class
+    assert_equal PublishingApi::PersonPresenter, presenter.class
   end
 
   test ".presenter_for returns a WorldLocation presenter for a world location" do
@@ -93,7 +93,7 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     world_location = MinisterialRole.new
     presenter = PublishingApiPresenters.presenter_for(world_location)
 
-    assert_equal PublishingApiPresenters::MinisterialRole, presenter.class
+    assert_equal PublishingApi::MinisterialRolePresenter, presenter.class
   end
 
   test ".presenter_for returns a WorldwideOrganisation presenter for a worldwide organisation" do
@@ -117,16 +117,16 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
 
   test ".presenter_for returns a special-case presenter for `Topic`" do
     presenter = PublishingApiPresenters.presenter_for(Topic.new)
-    assert_equal PublishingApiPresenters::PolicyAreaPlaceholder, presenter.class
+    assert_equal PublishingApi::PolicyAreaPlaceholderPresenter, presenter.class
   end
 
   test ".presenter_for returns a HtmlAttachment presenter for `HtmlAttachment`" do
     presenter = PublishingApiPresenters.presenter_for(build(:html_attachment))
-    assert_equal PublishingApiPresenters::HtmlAttachment, presenter.class
+    assert_equal PublishingApi::HtmlAttachmentPresenter, presenter.class
   end
 
   test ".presenter_for returns a DocumentCollectionPlaceholder presenter for `DocumentCollection`" do
     presenter = PublishingApiPresenters.presenter_for(build(:document_collection))
-    assert_equal PublishingApiPresenters::DocumentCollectionPlaceholder, presenter.class
+    assert_equal PublishingApi::DocumentCollectionPlaceholderPresenter, presenter.class
   end
 end

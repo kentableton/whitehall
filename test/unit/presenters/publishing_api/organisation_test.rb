@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class PublishingApiPresenters::OrganisationTest < ActionView::TestCase
+class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
   def present(model_instance, options = {})
-    PublishingApiPresenters::Organisation.new(model_instance, options)
+    PublishingApi::OrganisationPresenter.new(model_instance, options)
   end
 
   test 'presents an organisation with a brand colour' do

@@ -1,14 +1,14 @@
 require 'test_helper'
 
-class PublishingApiPresenters::HtmlAttachmentTest < ActiveSupport::TestCase
+class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
   def present(record)
-    PublishingApiPresenters::HtmlAttachment.new(record)
+    PublishingApi::HtmlAttachmentPresenter.new(record)
   end
 
   test "the constructor calls HtmlAttachment#render_govspeak!" do
     html_attachment = build(:html_attachment)
     html_attachment.govspeak_content.expects(:render_govspeak!)
-    PublishingApiPresenters::HtmlAttachment.new(html_attachment)
+    PublishingApi::HtmlAttachmentPresenter.new(html_attachment)
   end
 
   test "HtmlAttachment presentation includes the correct values" do
