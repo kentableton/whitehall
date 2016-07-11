@@ -1,5 +1,5 @@
-module PublishingApiPresenters
-  class BaseItem
+module PublishingApi
+  class BaseItemPresenter
 
     attr_accessor :item, :title, :need_ids, :locale
 

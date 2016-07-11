@@ -1,5 +1,5 @@
-module PublishingApiPresenters
-  class WorldLocation
+module PublishingApi
+  class MinisterialRole
     attr_accessor :item
     attr_accessor :update_type
 
@@ -13,7 +13,7 @@ module PublishingApiPresenters
     end
 
     def content
-      content = BaseItem.new(
+      content = BaseItemPresenter.new(
         item,
         title: item.name,
         need_ids: [],
@@ -28,11 +28,10 @@ module PublishingApiPresenters
         schema_name: "placeholder",
       )
       content.merge!(PayloadBuilder::PolymorphicPath.for(item))
-      content.merge!(PayloadBuilder::AnalyticsIdentifier.for(item))
     end
 
     def links
-      {}
+      LinksPresenter.new(item).extract([:organisations])
     end
   end
 end

@@ -1,6 +1,6 @@
-module PublishingApiPresenters
+module PublishingApi
   class GenericEdition
-    include PublishingApiPresenters::UpdateTypeHelper
+    include UpdateTypeHelper
 
     attr_accessor :item
     attr_accessor :update_type
@@ -15,7 +15,7 @@ module PublishingApiPresenters
     end
 
     def content
-      content = PublishingApiPresenters::BaseItem.new(item).base_attributes
+      content = BaseItemPresenter.new(item).base_attributes
       content.merge!(
         description: item.summary,
         details: PayloadBuilder::TagDetails.for(item),

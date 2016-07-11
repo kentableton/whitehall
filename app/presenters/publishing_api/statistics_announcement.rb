@@ -1,4 +1,4 @@
-module PublishingApiPresenters
+module PublishingApi
   class StatisticsAnnouncement
     attr_accessor :item
     attr_accessor :update_type
@@ -13,7 +13,7 @@ module PublishingApiPresenters
     end
 
     def content
-      content = BaseItem.new(
+      content = BaseItemPresenter.new(
         item,
         need_ids: [],
       ).base_attributes

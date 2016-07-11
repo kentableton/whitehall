@@ -1,6 +1,6 @@
-module PublishingApiPresenters
+module PublishingApi
   class DetailedGuide
-    include PublishingApiPresenters::UpdateTypeHelper
+    include UpdateTypeHelper
 
     attr_accessor :item
     attr_accessor :update_type
@@ -15,7 +15,7 @@ module PublishingApiPresenters
     end
 
     def content
-      content = PublishingApiPresenters::BaseItem.new(item).base_attributes
+      content = BaseItemPresenter.new(item).base_attributes
       content.merge!(
         description: item.summary,
         details: details,
@@ -24,13 +24,13 @@ module PublishingApiPresenters
         rendering_app: item.rendering_app,
         schema_name: "detailed_guide",
       )
-      content.merge!(PublishingApiPresenters::PayloadBuilder::PublicDocumentPath.for(item))
-      content.merge!(PublishingApiPresenters::PayloadBuilder::AccessLimitation.for(item))
-      content.merge!(PublishingApiPresenters::PayloadBuilder::WithdrawnNotice.for(item))
+      content.merge!(PayloadBuilder::PublicDocumentPath.for(item))
+      content.merge!(PayloadBuilder::AccessLimitation.for(item))
+      content.merge!(PayloadBuilder::WithdrawnNotice.for(item))
     end
 
     def links
-      PublishingApiPresenters::LinksPresenter.new(item).extract(
+      LinksPresenter.new(item).extract(
         [
           :organisations,
           :parent,
@@ -58,9 +58,9 @@ module PublishingApiPresenters
         related_mainstream_content: item.related_mainstream,
       }
       details_hash = maybe_add_national_applicability(details_hash)
-      details_hash.merge!(PublishingApiPresenters::PayloadBuilder::PoliticalDetails.for(item))
-      details_hash.merge!(PublishingApiPresenters::PayloadBuilder::WithdrawnNotice.for(item))
-      details_hash.merge!(PublishingApiPresenters::PayloadBuilder::TagDetails.for(item))
+      details_hash.merge!(PayloadBuilder::PoliticalDetails.for(item))
+      details_hash.merge!(PayloadBuilder::WithdrawnNotice.for(item))
+      details_hash.merge!(PayloadBuilder::TagDetails.for(item))
     end
 
     def first_public_at

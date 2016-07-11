@@ -1,4 +1,4 @@
-module PublishingApiPresenters
+module PublishingApi
   class HtmlAttachment
     attr_accessor :item
     attr_accessor :update_type
@@ -14,7 +14,7 @@ module PublishingApiPresenters
     end
 
     def content
-      content = BaseItem.new(
+      content = BaseItemPresenter.new(
         item,
         need_ids: [],
         locale: locale,

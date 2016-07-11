@@ -1,5 +1,6 @@
-module PublishingApiPresenters
-  class WorkingGroup
+module PublishingApi
+  class TopicalEventAboutPage
+
     attr_accessor :item
     attr_accessor :update_type
 
@@ -13,46 +14,47 @@ module PublishingApiPresenters
     end
 
     def content
-      content = BaseItem.new(
+      content = BaseItemPresenter.new(
         item,
         title: item.name,
-        need_ids: [],
+        need_ids: []
       ).base_attributes
 
       content.merge!(
         description: item.summary,
+        base_path: base_path,
         details: details,
         document_type: schema_name,
         public_updated_at: item.updated_at,
         rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
         schema_name: schema_name,
       )
-      content.merge!(PayloadBuilder::PolymorphicPath.for(item))
+      content.merge!(PayloadBuilder::Routes.for(base_path))
     end
 
     def links
-      {}
+      { parent: [item.topical_event.content_id] }
     end
 
   private
+
     def schema_name
-      "working_group"
+      "topical_event_about_page"
     end
 
-    def description
-      item.summary # This is deliberately the 'wrong' way around
+    def base_path
+      Whitehall.url_maker.topical_event_about_pages_path(item.topical_event)
     end
 
     def details
       {
-        email: item.email,
         body: body,
+        read_more: item.read_more_link_text
       }
     end
 
     def body
-      # It looks 'wrong' using the description as the body, but it isn't
-      Whitehall::GovspeakRenderer.new.govspeak_with_attachments_to_html(item.description, item.attachments, item.email)
+      Whitehall::GovspeakRenderer.new.govspeak_to_html(item.body)
     end
   end
 end

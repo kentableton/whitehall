@@ -1,4 +1,4 @@
-module PublishingApiPresenters
+module PublishingApi
   class Organisation
     include ApplicationHelper
 
@@ -15,7 +15,7 @@ module PublishingApiPresenters
     end
 
     def content
-      content = BaseItem.new(
+      content = BaseItemPresenter.new(
         item,
         title: item.name,
         need_ids: [],

@@ -1,6 +1,5 @@
-module PublishingApiPresenters
-  # Note that "Policy Area" is the new name for "Topic".
-  class PolicyAreaPlaceholder
+module PublishingApi
+  class WorldwideOrganisation
     attr_accessor :item
     attr_accessor :update_type
 
@@ -14,7 +13,7 @@ module PublishingApiPresenters
     end
 
     def content
-      content = BaseItem.new(
+      content = BaseItemPresenter.new(
         item,
         title: item.name,
         need_ids: [],
@@ -23,23 +22,17 @@ module PublishingApiPresenters
       content.merge!(
         description: nil,
         details: {},
-        document_type: "policy_area",
+        document_type: item.class.name.underscore,
         public_updated_at: item.updated_at,
         rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
-        schema_name: schema_name,
+        schema_name: "placeholder",
       )
       content.merge!(PayloadBuilder::PolymorphicPath.for(item))
+      content.merge!(PayloadBuilder::AnalyticsIdentifier.for(item))
     end
-
 
     def links
-      LinksPresenter.new(item).extract([:organisations])
-    end
-
-  private
-
-    def schema_name
-      "placeholder"
+      {}
     end
   end
 end

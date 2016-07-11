@@ -1,4 +1,4 @@
-module PublishingApiPresenters
+module PublishingApi
   class Unpublishing
     attr_accessor :item
     attr_accessor :update_type
@@ -14,7 +14,7 @@ module PublishingApiPresenters
 
     def content
       return redirect_hash if item.redirect?
-      content = BaseItem.new(
+      content = BaseItemPresenter.new(
         item,
         title: edition.title,
         need_ids: edition.need_ids

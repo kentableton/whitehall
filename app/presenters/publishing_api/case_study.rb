@@ -1,6 +1,6 @@
-module PublishingApiPresenters
-  class CaseStudy
-    include PublishingApiPresenters::UpdateTypeHelper
+module PublishingApi
+  class CaseStudyPresenter
+    include UpdateTypeHelper
 
     attr_accessor :item
     attr_accessor :update_type
@@ -15,7 +15,7 @@ module PublishingApiPresenters
     end
 
     def content
-      content = PublishingApiPresenters::BaseItem.new(item).base_attributes
+      content = BaseItemPresenterPresenter.new(item).base_attributes
       content.merge!(
         description: item.summary,
         details: details,
@@ -24,13 +24,13 @@ module PublishingApiPresenters
         rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
         schema_name: "case_study",
       )
-      content.merge!(PublishingApiPresenters::PayloadBuilder::PublicDocumentPath.for(item))
-      content.merge!(PublishingApiPresenters::PayloadBuilder::AccessLimitation.for(item))
-      content.merge!(PublishingApiPresenters::PayloadBuilder::WithdrawnNotice.for(item))
+      content.merge!(PayloadBuilder::PublicDocumentPath.for(item))
+      content.merge!(PayloadBuilder::AccessLimitation.for(item))
+      content.merge!(PayloadBuilder::WithdrawnNotice.for(item))
     end
 
     def links
-      PublishingApiPresenters::LinksPresenter.new(item).extract(
+      LinksPresenter.new(item).extract(
         [
           :document_collections,
           :organisations,
@@ -54,8 +54,8 @@ module PublishingApiPresenters
         format_display_type: item.display_type_key,
       }
       details_hash[:image] = image_details if image_available?
-      details_hash.merge!(PublishingApiPresenters::PayloadBuilder::WithdrawnNotice.for(item))
-      details_hash.merge!(PublishingApiPresenters::PayloadBuilder::TagDetails.for(item))
+      details_hash.merge!(PayloadBuilder::WithdrawnNotice.for(item))
+      details_hash.merge!(PayloadBuilder::TagDetails.for(item))
     end
 
     def first_public_at

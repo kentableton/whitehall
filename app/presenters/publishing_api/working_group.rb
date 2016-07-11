@@ -1,5 +1,5 @@
-module PublishingApiPresenters
-  class TakePart
+module PublishingApi
+  class WorkingGroup
     attr_accessor :item
     attr_accessor :update_type
 
@@ -13,8 +13,9 @@ module PublishingApiPresenters
     end
 
     def content
-      content = BaseItem.new(
+      content = BaseItemPresenter.new(
         item,
+        title: item.name,
         need_ids: [],
       ).base_attributes
 
@@ -30,41 +31,28 @@ module PublishingApiPresenters
     end
 
     def links
-      LinksPresenter.new(item).extract([
-        :policy_areas,
-      ])
+      {}
     end
 
   private
-
     def schema_name
-      "take_part"
+      "working_group"
+    end
+
+    def description
+      item.summary # This is deliberately the 'wrong' way around
     end
 
     def details
       {
+        email: item.email,
         body: body,
-        image: {
-          url: Whitehall.public_asset_host + item.image_url(:s300),
-          alt_text: item.image_alt_text,
-        }
       }
     end
 
-    def description
-      item.summary
-    end
-
-    def public_updated_at
-      item.updated_at
-    end
-
     def body
-      Whitehall::GovspeakRenderer.new.govspeak_to_html(item.body)
-    end
-
-    def rendering_app
-      Whitehall::RenderingApp::GOVERNMENT_FRONTEND
+      # It looks 'wrong' using the description as the body, but it isn't
+      Whitehall::GovspeakRenderer.new.govspeak_with_attachments_to_html(item.description, item.attachments, item.email)
     end
   end
 end

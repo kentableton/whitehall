@@ -1,6 +1,6 @@
-module PublishingApiPresenters
+module PublishingApi
   class DocumentCollectionPlaceholder
-    include PublishingApiPresenters::UpdateTypeHelper
+    include UpdateTypeHelper
 
     attr_accessor :item
     attr_accessor :update_type
@@ -15,21 +15,21 @@ module PublishingApiPresenters
     end
 
     def content
-      content = PublishingApiPresenters::BaseItem.new(item).base_attributes
+      content = BaseItemPresenter.new(item).base_attributes
       content.merge!(
         description: item.summary,
-        details: PublishingApiPresenters::PayloadBuilder::TagDetails.for(item),
+        details: PayloadBuilder::TagDetails.for(item),
         document_type: item.display_type_key,
         public_updated_at: item.public_timestamp || item.updated_at,
         rendering_app: item.rendering_app,
         schema_name: "placeholder_#{item.class.name.underscore}",
       )
-      content.merge!(PublishingApiPresenters::PayloadBuilder::PublicDocumentPath.for(item))
-      content.merge!(PublishingApiPresenters::PayloadBuilder::AccessLimitation.for(item))
+      content.merge!(PayloadBuilder::PublicDocumentPath.for(item))
+      content.merge!(PayloadBuilder::AccessLimitation.for(item))
     end
 
     def links
-      PublishingApiPresenters::LinksPresenter.new(item).extract(
+      LinksPresenter.new(item).extract(
         [:organisations, :parent, :topics]
       ).merge(documents: item.documents.pluck(:content_id))
     end

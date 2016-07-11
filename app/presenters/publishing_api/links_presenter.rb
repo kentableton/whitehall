@@ -1,4 +1,4 @@
-module PublishingApiPresenters
+module PublishingApi
   class LinksPresenter
     LINK_NAMES_TO_METHODS_MAP = {
       document_collections: :document_collection_ids,

@@ -1,6 +1,5 @@
-module PublishingApiPresenters
-  class TopicalEventAboutPage
-
+module PublishingApi
+  class TakePart
     attr_accessor :item
     attr_accessor :update_type
 
@@ -14,47 +13,58 @@ module PublishingApiPresenters
     end
 
     def content
-      content = BaseItem.new(
+      content = BaseItemPresenter.new(
         item,
-        title: item.name,
-        need_ids: []
+        need_ids: [],
       ).base_attributes
 
       content.merge!(
         description: item.summary,
-        base_path: base_path,
         details: details,
         document_type: schema_name,
         public_updated_at: item.updated_at,
         rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
         schema_name: schema_name,
       )
-      content.merge!(PayloadBuilder::Routes.for(base_path))
+      content.merge!(PayloadBuilder::PolymorphicPath.for(item))
     end
 
     def links
-      { parent: [item.topical_event.content_id] }
+      LinksPresenter.new(item).extract([
+        :policy_areas,
+      ])
     end
 
   private
 
     def schema_name
-      "topical_event_about_page"
-    end
-
-    def base_path
-      Whitehall.url_maker.topical_event_about_pages_path(item.topical_event)
+      "take_part"
     end
 
     def details
       {
         body: body,
-        read_more: item.read_more_link_text
+        image: {
+          url: Whitehall.public_asset_host + item.image_url(:s300),
+          alt_text: item.image_alt_text,
+        }
       }
+    end
+
+    def description
+      item.summary
+    end
+
+    def public_updated_at
+      item.updated_at
     end
 
     def body
       Whitehall::GovspeakRenderer.new.govspeak_to_html(item.body)
+    end
+
+    def rendering_app
+      Whitehall::RenderingApp::GOVERNMENT_FRONTEND
     end
   end
 end

@@ -15,8 +15,8 @@ require "securerandom"
 # Note this format becomes redundant once the caching infrastructure is able to
 # honour caching headers on upstream 404 responses.
 
-module PublishingApiPresenters
-  class ComingSoon
+module PublishingApi
+  class ComingSoonPresenter
     attr_reader :content_id
     attr_accessor :item
     attr_accessor :update_type
@@ -28,7 +28,7 @@ module PublishingApiPresenters
     end
 
     def content
-      content = BaseItem.new(
+      content = BaseItemPresenter.new(
         item,
         title: 'Coming soon',
         need_ids: [],
@@ -42,7 +42,7 @@ module PublishingApiPresenters
         rendering_app: item.rendering_app,
         schema_name: 'coming_soon',
       )
-      content.merge!(PublishingApiPresenters::PayloadBuilder::PublicDocumentPath.for(item))
+      content.merge!(PayloadBuilder::PublicDocumentPath.for(item))
     end
 
     def links
