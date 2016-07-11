@@ -20,14 +20,13 @@ module PublishingApiPresenters
 
       content.merge!(
         description: item.summary,
-        base_path: base_path,
         details: details,
         document_type: document_type,
         public_updated_at: item.updated_at,
         rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
         schema_name: schema_name,
       )
-      content.merge!(PayloadBuilder::Routes.for(base_path))
+      content.merge!(PayloadBuilder::PolymorphicPath.for(item))
     end
 
 
@@ -39,10 +38,6 @@ module PublishingApiPresenters
     end
 
   private
-
-    def base_path
-      Whitehall.url_maker.polymorphic_path(item)
-    end
 
     def schema_name
       "statistics_announcement"

@@ -1,6 +1,6 @@
 module PublishingApiPresenters
   module PayloadBuilder
-    class PublicDocumentPath
+    class PolymorphicPath
       attr_reader :item
 
       def self.for(item)
@@ -18,7 +18,7 @@ module PublishingApiPresenters
     private
 
       def base_path
-        @base_path ||= Whitehall.url_maker.public_document_path(item, locale: I18n.locale)
+        @base_path ||= Whitehall.url_maker.polymorphic_path(item)
       end
     end
   end

@@ -29,7 +29,7 @@ module PublishingApiPresenters
         rendering_app: rendering_app,
         schema_name: schema_name,
       )
-      content.merge!(PublishingApiPresenters::PayloadBuilder::Routes.for(base_path))
+      content.merge!(PayloadBuilder::Routes.for(base_path))
     end
 
     def links
