@@ -59,7 +59,11 @@ private
     when Announcement
       PublishingApiPresenters::Announcement
     else
-      # NewsArticle, WorldLocationNewsArticle, Speech, CorporateInformationPage, Consultations, StatisticalDataSet
+      # This is a catch-all clause for the following classes:
+      # NewsArticle, WorldLocationNewsArticle, Speech, CorporateInformationPage,
+      # Consultations, StatisticalDataSet
+      # The presenter implementation for all of these models is identical and
+      # the structure of the presented payload is the same.
       PublishingApiPresenters::GenericEdition
     end
   end
