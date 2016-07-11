@@ -16,12 +16,33 @@ require "securerandom"
 # honour caching headers on upstream 404 responses.
 
 module PublishingApiPresenters
-  class ComingSoon < Item
+  class ComingSoon
     attr_reader :content_id
+    attr_accessor :item
+    attr_accessor :update_type
 
     def initialize(item, update_type: nil)
-      super
+      self.item = item
+      self.update_type = update_type || "major"
       @content_id = SecureRandom.uuid
+    end
+
+    def content
+      content = BaseItem.new(
+        item,
+        title: 'Coming soon',
+        need_ids: [],
+      ).base_attributes
+
+      content.merge!(
+        description: 'Coming soon',
+        details: details,
+        document_type: 'coming_soon',
+        public_updated_at: item.updated_at,
+        rendering_app: item.rendering_app,
+        schema_name: 'coming_soon',
+      )
+      content.merge!(PublishingApiPresenters::PayloadBuilder::PublicDocumentPath.for(item))
     end
 
     def links
@@ -30,32 +51,8 @@ module PublishingApiPresenters
 
   private
 
-    def schema_name
-      'coming_soon'
-    end
-
-    def title
-      'Coming soon'
-    end
-
-    def description
-      'Coming soon'
-    end
-
-    def rendering_app
-      item.rendering_app
-    end
-
     def details
       { publish_time: item.scheduled_publication.as_json }
-    end
-
-    def public_updated_at
-      item.updated_at
-    end
-
-    def base_path
-      Whitehall.url_maker.public_document_path(item, locale: I18n.locale)
     end
   end
 end

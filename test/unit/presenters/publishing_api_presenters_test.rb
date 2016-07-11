@@ -45,12 +45,27 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     assert_equal PublishingApiPresenters::Unpublishing, presenter.class
   end
 
-  test ".presenter_for returns a generic Edition presenter for non-case studies" do
-    assert_equal PublishingApiPresenters::Edition,
+  test ".presenter_for returns a Generic Edition presenter for all models without a presenter class" do
+    assert_equal PublishingApiPresenters::GenericEdition,
       PublishingApiPresenters.presenter_for(GenericEdition.new).class
 
-    assert_equal PublishingApiPresenters::Edition,
+    assert_equal PublishingApiPresenters::GenericEdition,
       PublishingApiPresenters.presenter_for(NewsArticle.new).class
+
+    assert_equal PublishingApiPresenters::GenericEdition,
+      PublishingApiPresenters.presenter_for(WorldLocationNewsArticle.new).class
+
+    assert_equal PublishingApiPresenters::GenericEdition,
+      PublishingApiPresenters.presenter_for(Speech.new).class
+
+    assert_equal PublishingApiPresenters::GenericEdition,
+      PublishingApiPresenters.presenter_for(CorporateInformationPage.new).class
+
+    assert_equal PublishingApiPresenters::GenericEdition,
+      PublishingApiPresenters.presenter_for(Consultation.new).class
+
+    assert_equal PublishingApiPresenters::GenericEdition,
+      PublishingApiPresenters.presenter_for(StatisticalDataSet.new).class
   end
 
   test ".presenter_for returns a Placeholder presenter for an organisation" do

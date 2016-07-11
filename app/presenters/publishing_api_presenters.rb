@@ -56,8 +56,6 @@ private
       PublishingApiPresenters::DetailedGuide
     when ::Publication
       PublishingApiPresenters::Publication
-    when Announcement
-      PublishingApiPresenters::Announcement
     else
       # This is a catch-all clause for the following classes:
       # NewsArticle, WorldLocationNewsArticle, Speech, CorporateInformationPage,
