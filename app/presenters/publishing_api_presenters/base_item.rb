@@ -1,12 +1,12 @@
 module PublishingApiPresenters
   class BaseItem
-    extend Forwardable
 
-    attr_accessor :item, :locale
-    def_delegators :item, :title, :need_ids
+    attr_accessor :item, :title, :need_ids, :locale
 
-    def initialize(item, locale: I18n.locale.to_s)
+    def initialize(item, title: nil, need_ids: nil, locale: I18n.locale.to_s)
       self.item = item
+      self.title = title || item.title
+      self.need_ids = need_ids || item.need_ids
       self.locale = locale
     end
 

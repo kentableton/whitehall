@@ -1,9 +1,44 @@
 module PublishingApiPresenters
-  class HtmlAttachment < Item
+  class HtmlAttachment
+    attr_accessor :item
+    attr_accessor :update_type
+
     def initialize(item, update_type: nil)
-      super
+      self.item = item
+      self.update_type = update_type || "major"
       item.govspeak_content.try(:render_govspeak!)
     end
+
+    def content_id
+      item.content_id
+    end
+
+    def content
+      content = BaseItem.new(
+        item,
+        need_ids: [],
+        locale: locale,
+      ).base_attributes
+
+      content.merge!(
+        base_path: base_path,
+        description: nil,
+        details: details,
+        document_type: schema_name,
+        public_updated_at: item.updated_at,
+        rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
+        schema_name: schema_name,
+      )
+      content.merge!(PayloadBuilder::Routes.for(base_path))
+    end
+
+
+    def links
+      LinksPresenter.new(item).extract([
+        :policy_areas,
+      ])
+    end
+
 
     def links
       {
@@ -18,6 +53,10 @@ module PublishingApiPresenters
       "html_publication"
     end
 
+    def base_path
+      item.url
+    end
+
     def details
       {
         body: body,
@@ -25,18 +64,6 @@ module PublishingApiPresenters
         public_timestamp: public_timestamp,
         first_published_version: first_published_version?
       }
-    end
-
-    def base_path
-      item.url
-    end
-
-    def description
-      #not used in this format
-    end
-
-    def public_updated_at
-      item.updated_at
     end
 
     def body

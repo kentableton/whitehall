@@ -1,13 +1,52 @@
 module PublishingApiPresenters
-  class StatisticsAnnouncement < Item
+  class StatisticsAnnouncement
+    attr_accessor :item
+    attr_accessor :update_type
+
+    def initialize(item, update_type: nil)
+      self.item = item
+      self.update_type = update_type || "major"
+    end
+
+    def content_id
+      item.content_id
+    end
+
+    def content
+      content = BaseItem.new(
+        item,
+        need_ids: [],
+      ).base_attributes
+
+      content.merge!(
+        description: item.summary,
+        base_path: base_path,
+        details: details,
+        document_type: document_type,
+        public_updated_at: item.updated_at,
+        rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
+        schema_name: schema_name,
+      )
+      content.merge!(PayloadBuilder::Routes.for(base_path))
+    end
+
+
     def links
-      extract_links([
+      LinksPresenter.new(item).extract([
         :organisations,
         :policy_areas,
       ])
     end
 
   private
+
+    def base_path
+      Whitehall.url_maker.polymorphic_path(item)
+    end
+
+    def schema_name
+      "statistics_announcement"
+    end
 
     def details
       {
@@ -26,24 +65,8 @@ module PublishingApiPresenters
       end
     end
 
-    def schema_name
-      "statistics_announcement"
-    end
-
     def document_type
       item.national_statistic? ? "national" : "official"
-    end
-
-    def rendering_app
-      Whitehall::RenderingApp::GOVERNMENT_FRONTEND
-    end
-
-    def description
-      item.summary
-    end
-
-    def public_updated_at
-      item.updated_at
     end
 
     def cancelled_at

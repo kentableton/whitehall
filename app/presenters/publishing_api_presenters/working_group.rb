@@ -1,13 +1,43 @@
 module PublishingApiPresenters
-  class WorkingGroup < Item
+  class WorkingGroup
+    attr_accessor :item
+    attr_accessor :update_type
+
+    def initialize(item, update_type: nil)
+      self.item = item
+      self.update_type = update_type || "major"
+    end
+
+    def content_id
+      item.content_id
+    end
+
+    def content
+      content = BaseItem.new(
+        item,
+        title: item.name,
+        need_ids: [],
+      ).base_attributes
+
+      content.merge!(
+        description: item.summary,
+        base_path: base_path,
+        details: details,
+        document_type: schema_name,
+        public_updated_at: item.updated_at,
+        rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
+        schema_name: schema_name,
+      )
+      content.merge!(PayloadBuilder::Routes.for(base_path))
+    end
+
     def links
       {}
     end
 
   private
-
-    def title
-      item.name
+    def base_path
+      Whitehall.url_maker.polymorphic_path(item)
     end
 
     def schema_name
@@ -28,14 +58,6 @@ module PublishingApiPresenters
     def body
       # It looks 'wrong' using the description as the body, but it isn't
       Whitehall::GovspeakRenderer.new.govspeak_with_attachments_to_html(item.description, item.attachments, item.email)
-    end
-
-    def public_updated_at
-      item.updated_at
-    end
-
-    def rendering_app
-      Whitehall::RenderingApp::GOVERNMENT_FRONTEND
     end
   end
 end

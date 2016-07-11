@@ -1,34 +1,50 @@
 module PublishingApiPresenters
-  class TopicalEvent < Item
-    def details
-      super.tap do |details|
-        details[:start_date] = item.start_date.to_datetime if item.start_date
-        details[:end_date] = item.end_date.to_datetime if item.end_date
-      end
+  class TopicalEvent
+    attr_accessor :item
+    attr_accessor :update_type
+
+    def initialize(item, update_type: nil)
+      self.item = item
+      self.update_type = update_type || "major"
     end
 
-    def title
-      item.name
+    def content_id
+      item.content_id
     end
 
-    def description
-      nil
-    end
+    def content
+      content = BaseItem.new(
+        item,
+        title: item.name,
+        need_ids: [],
+      ).base_attributes
 
-    def schema_name
-      "placeholder"
-    end
-
-    def document_type
-      item.class.name.underscore
-    end
-
-    def public_updated_at
-      item.updated_at
+      content.merge!(
+        description: nil,
+        base_path: base_path,
+        details: details,
+        document_type: item.class.name.underscore,
+        public_updated_at: item.updated_at,
+        rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
+        schema_name: "placeholder",
+      )
+      content.merge!(PayloadBuilder::Routes.for(base_path))
     end
 
     def links
-      extract_links([:organisations])
+      LinksPresenter.new(item).extract([:organisations])
+    end
+
+  private
+    def base_path
+      Whitehall.url_maker.polymorphic_path(item)
+    end
+
+    def details
+      {}.tap do |details|
+        details[:start_date] = item.start_date.to_datetime if item.start_date
+        details[:end_date] = item.end_date.to_datetime if item.end_date
+      end
     end
   end
 end

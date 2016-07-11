@@ -1,7 +1,35 @@
 module PublishingApiPresenters
-  class Unpublishing < Item
+  class Unpublishing
+    attr_accessor :item
+    attr_accessor :update_type
+
+    def initialize(item, update_type: nil)
+      self.item = item
+      self.update_type = update_type || "major"
+    end
+
+    def content_id
+      item.content_id
+    end
+
     def content
-      item.redirect? ? redirect_hash : super
+      return redirect_hash if item.redirect?
+      content = BaseItem.new(
+        item,
+        title: edition.title,
+        need_ids: edition.need_ids
+      ).base_attributes
+
+      content.merge!(
+        base_path: base_path,
+        description: description,
+        details: details,
+        document_type: document_type,
+        public_updated_at: public_updated_at,
+        rendering_app: rendering_app,
+        schema_name: schema_name,
+      )
+      content.merge!(PublishingApiPresenters::PayloadBuilder::Routes.for(base_path))
     end
 
     def links
@@ -41,20 +69,12 @@ module PublishingApiPresenters
       edition.rendering_app
     end
 
-    def title
-      edition.title
-    end
-
     def description
       edition.summary
     end
 
     def public_updated_at
       edition.public_timestamp
-    end
-
-    def need_ids
-      edition.need_ids
     end
 
     def alternative_path
