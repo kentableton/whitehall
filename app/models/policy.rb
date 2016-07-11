@@ -38,6 +38,14 @@ private
     Rails.cache.fetch('policy.linkables', expires_in: 5.minutes) do
       publishing_api.get_linkables(document_type: "policy").to_a
     end
+  rescue GdsApi::TimedOutException, GdsApi::HTTPServerError => e
+    Airbrake.notify_or_ignore(e)
+    # This call normally takes ~20ms. If it takes longer than a second, fetch a stale value from
+    # cache. Rails adds 5 minutes to the `expires_in` value above to generate the TTL it sends to
+    # memcached, so we will have 5 minutes of staleness before the key is evicted.
+    # If there's no key in the cache, just return an empty array. Incomplete data is more desirable
+    # than 504s / 500s
+    Rails.cache.fetch('policy.linkables') || []
   end
 
   def self.find_policy(content_id)
@@ -45,6 +53,8 @@ private
   end
 
   def self.publishing_api
-    @publishing_api ||= Whitehall.publishing_api_v2_client
+    @publishing_api ||= Whitehall.publishing_api_v2_client.dup.tap do |client|
+      client.options[:timeout] = 1
+    end
   end
 end
