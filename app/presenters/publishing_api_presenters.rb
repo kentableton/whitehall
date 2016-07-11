@@ -56,11 +56,11 @@ private
       PublishingApiPresenters::DetailedGuide
     when ::Publication
       PublishingApiPresenters::Publication
+    when Announcement
+      PublishingApiPresenters::Announcement
     else
-      # FIXME: Announcement, CorporateInformationPage, Publicationesque
-      # (Consultations, StatisticalDataSet) should have their own presenters
-      # and replace the line below.
-      PublishingApiPresenters::Edition
+      # NewsArticle, WorldLocationNewsArticle, Speech, CorporateInformationPage, Consultations, StatisticalDataSet
+      PublishingApiPresenters::GenericEdition
     end
   end
 end
