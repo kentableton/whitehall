@@ -1,5 +1,5 @@
 module PublishingApi
-  class DetailedGuide
+  class DetailedGuidePresenter
     include UpdateTypeHelper
 
     attr_accessor :item
