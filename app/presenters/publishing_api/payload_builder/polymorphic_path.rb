@@ -1,4 +1,4 @@
-module PublishingApiPresenters
+module PublishingApi
   module PayloadBuilder
     class PolymorphicPath
       attr_reader :item

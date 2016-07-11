@@ -1,6 +1,6 @@
 require "test_helper"
 
-module PublishingApiPresenters
+module PublishingApi
   module PayloadBuilder
     class PoliticalDetailsTest < ActiveSupport::TestCase
       test "returns political details for the item" do

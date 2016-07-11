@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PublishingApiPresenters::TopicalEventTest < ActiveSupport::TestCase
+class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
   test 'presents a valid placeholder "topical_event" content item' do
     topical_event = create(:topical_event, :active, name: "Humans going to Mars")
     public_path = '/government/topical-events/humans-going-to-mars'
@@ -29,7 +29,7 @@ class PublishingApiPresenters::TopicalEventTest < ActiveSupport::TestCase
       }
     }
 
-    presenter = PublishingApiPresenters::TopicalEvent.new(topical_event)
+    presenter = PublishingApi::TopicalEventPresenter.new(topical_event)
 
     assert_equal expected_hash, presenter.content
     assert_valid_against_schema(presenter.content, 'placeholder')
@@ -60,7 +60,7 @@ class PublishingApiPresenters::TopicalEventTest < ActiveSupport::TestCase
       details: {}
     }
 
-    presenter = PublishingApiPresenters::TopicalEvent.new(topical_event)
+    presenter = PublishingApi::TopicalEventPresenter.new(topical_event)
 
     assert_equal expected_hash, presenter.content
     assert_valid_against_schema(presenter.content, 'placeholder')
@@ -69,7 +69,7 @@ class PublishingApiPresenters::TopicalEventTest < ActiveSupport::TestCase
   test "handles topical events without an end_date" do
     topical_event = create(:topical_event, start_date: Date.today)
 
-    presenter = PublishingApiPresenters::TopicalEvent.new(topical_event)
+    presenter = PublishingApi::TopicalEventPresenter.new(topical_event)
 
     assert_equal({ start_date: Date.today }, presenter.content[:details])
     assert_valid_against_schema(presenter.content, 'placeholder')

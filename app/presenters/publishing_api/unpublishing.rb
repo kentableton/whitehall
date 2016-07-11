@@ -1,5 +1,5 @@
 module PublishingApi
-  class Unpublishing
+  class UnpublishingPresenter
     attr_accessor :item
     attr_accessor :update_type
 

@@ -47,7 +47,7 @@ private
 
   def edition_content_item
     @edition_content_item ||= begin
-      presented_edition = PublishingApiPresenters::Edition.new(@edition)
+      presented_edition = PublishingApi::Edition.new(@edition)
       edition_path = presented_edition.base_path
       Whitehall.content_store.content_item(edition_path)
     end

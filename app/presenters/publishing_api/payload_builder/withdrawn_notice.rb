@@ -1,4 +1,4 @@
-module PublishingApiPresenters
+module PublishingApi
   module PayloadBuilder
     class WithdrawnNotice
       attr_reader :item

@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class PublishingApiPresenters::TakePartTest < ActiveSupport::TestCase
+class PublishingApi::TakePartPresenterTest < ActiveSupport::TestCase
   def present(record)
-    PublishingApiPresenters::TakePart.new(record)
+    PublishingApi::TakePartPresenter.new(record)
   end
 
   test "take part presentation includes the correct values" do

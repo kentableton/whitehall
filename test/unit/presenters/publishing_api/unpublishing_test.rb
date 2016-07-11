@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
+class PublishingApi::UnpublishingPresenterTest < ActiveSupport::TestCase
   test '#as_json returns a valid representation of an Unpublishing' do
     unpublishing = create(:unpublishing)
     edition      = unpublishing.edition
@@ -27,7 +27,7 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
       },
     }
 
-    presenter = PublishingApiPresenters::Unpublishing.new(unpublishing)
+    presenter = PublishingApi::UnpublishingPresenter.new(unpublishing)
 
     assert_equal expected_hash, presenter.content
     assert_equal unpublishing.content_id, presenter.content_id
@@ -35,7 +35,7 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
   end
 
   test '#as_json allows update_type to be overridden' do
-    presenter = PublishingApiPresenters::Unpublishing.new(create(:unpublishing), update_type: 'republish')
+    presenter = PublishingApi::UnpublishingPresenter.new(create(:unpublishing), update_type: 'republish')
 
     assert_equal 'republish', presenter.update_type
     assert_valid_against_schema(presenter.content, 'unpublishing')
@@ -51,7 +51,7 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
       alternative_url: nil
     }
 
-    presented_item = PublishingApiPresenters::Unpublishing.new(unpublishing)
+    presented_item = PublishingApi::UnpublishingPresenter.new(unpublishing)
 
     assert_valid_against_schema(presented_item.content, 'unpublishing')
     assert_valid_against_links_schema(presented_item.links, 'unpublishing')
@@ -75,7 +75,7 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
       alternative_url: alternative_url
     }
 
-    presenter = PublishingApiPresenters::Unpublishing.new(unpublishing)
+    presenter = PublishingApi::UnpublishingPresenter.new(unpublishing)
 
     assert_equal expected_details_hash, presenter.content[:details]
     assert_valid_against_schema(presenter.content, 'unpublishing')
@@ -91,7 +91,7 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
       edition.title = 'French title'
       edition.save!
 
-      presenter = PublishingApiPresenters::Unpublishing.new(unpublishing)
+      presenter = PublishingApi::UnpublishingPresenter.new(unpublishing)
 
       assert_equal french_base_path, presenter.content[:routes].first[:path]
       assert_valid_against_schema(presenter.content, 'unpublishing')
@@ -126,7 +126,7 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
 
     EditionDeleter.new(edition).perform!
 
-    presenter = PublishingApiPresenters::Unpublishing.new(unpublishing)
+    presenter = PublishingApi::UnpublishingPresenter.new(unpublishing)
 
     assert_equal expected_hash, presenter.content
     assert_equal unpublishing.content_id, presenter.content_id
@@ -147,7 +147,7 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
     unpublishing.reload
 
     I18n.with_locale(:fr) do
-      presenter = PublishingApiPresenters::Unpublishing.new(unpublishing)
+      presenter = PublishingApi::UnpublishingPresenter.new(unpublishing)
 
       assert_equal french_base_path, presenter.content[:routes].first[:path]
       assert_equal 'fr', presenter.content[:locale]
@@ -168,7 +168,7 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
       ],
     }
 
-    presenter = PublishingApiPresenters::Unpublishing.new(unpublishing)
+    presenter = PublishingApi::UnpublishingPresenter.new(unpublishing)
 
     assert_equal expected_hash, presenter.content
     assert_equal unpublishing.content_id, presenter.content_id
@@ -189,7 +189,7 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
       ],
     }
 
-    presenter = PublishingApiPresenters::Unpublishing.new(unpublishing)
+    presenter = PublishingApi::UnpublishingPresenter.new(unpublishing)
 
     assert_equal expected_hash, presenter.content
     assert_equal unpublishing.content_id, presenter.content_id
@@ -201,7 +201,7 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
     unpublishing     = create(:published_in_error_redirect_unpublishing,
       alternative_url: Whitehall.public_root + alternative_path)
 
-    presenter = PublishingApiPresenters::Unpublishing.new(unpublishing)
+    presenter = PublishingApi::UnpublishingPresenter.new(unpublishing)
     presented_hash = presenter.content
 
     assert_equal alternative_path, presented_hash[:redirects][0][:destination]
@@ -210,7 +210,7 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
   test "redirect representations contain content IDs" do
     unpublishing = create(:published_in_error_redirect_unpublishing)
 
-    presenter = PublishingApiPresenters::Unpublishing.new(unpublishing)
+    presenter = PublishingApi::UnpublishingPresenter.new(unpublishing)
 
     assert_equal unpublishing.content_id, presenter.content_id
   end

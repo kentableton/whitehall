@@ -1,4 +1,4 @@
-module PublishingApiPresenters
+module PublishingApi
   module PayloadBuilder
     class PoliticalDetails
       attr_reader :item

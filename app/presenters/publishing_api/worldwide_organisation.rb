@@ -1,5 +1,5 @@
 module PublishingApi
-  class WorldwideOrganisation
+  class WorldwideOrganisationPresenter
     attr_accessor :item
     attr_accessor :update_type
 

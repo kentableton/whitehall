@@ -12,19 +12,19 @@ private
     when ::Edition
       presenter_class_for_edition(model)
     when ::Unpublishing
-      PublishingApiPresenters::Unpublishing
+      PublishingApi::UnpublishingPresenter
     when AboutPage
-      PublishingApiPresenters::TopicalEventAboutPage
+      PublishingApi::TopicalEventPresenterAboutPage
     when PolicyGroup
-      PublishingApiPresenters::WorkingGroup
+      PublishingApi::WorkingGroupPresenter
     when TakePartPage
-      PublishingApiPresenters::TakePart
+      PublishingApi::TakePartPresenter
     when Topic
       PublishingApi::PolicyAreaPlaceholderPresenter
     when ::Organisation
       PublishingApi::OrganisationPresenter
     when ::TopicalEvent
-      PublishingApiPresenters::TopicalEvent
+      PublishingApi::TopicalEventPresenter
     when ::StatisticsAnnouncement
       if model.requires_redirect?
         PublishingApi::StatisticsAnnouncementPresenterRedirect
@@ -36,11 +36,11 @@ private
     when ::Person
       PublishingApi::PersonPresenter
     when ::WorldLocation
-      PublishingApiPresenters::WorldLocation
+      PublishingApi::WorldLocationPresenter
     when ::MinisterialRole
       PublishingApi::MinisterialRolePresenter
     when ::WorldwideOrganisation
-      PublishingApiPresenters::WorldwideOrganisation
+      PublishingApi::WorldwideOrganisationPresenter
     else
       raise UndefinedPresenterError, "Could not find presenter class for: #{model.inspect}"
     end

@@ -19,7 +19,7 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     take_part_page = TakePartPage.new
     presenter = PublishingApiPresenters.presenter_for(take_part_page)
 
-    assert_equal PublishingApiPresenters::TakePart, presenter.class
+    assert_equal PublishingApi::TakePartPresenter, presenter.class
   end
 
   test ".presenter_for returns a presenter for a Statistics Announcement" do
@@ -42,7 +42,7 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     unpublishing = Unpublishing.new
     presenter = PublishingApiPresenters.presenter_for(unpublishing)
 
-    assert_equal PublishingApiPresenters::Unpublishing, presenter.class
+    assert_equal PublishingApi::UnpublishingPresenter, presenter.class
   end
 
   test ".presenter_for returns a Generic Edition presenter for all models without a presenter class" do
@@ -86,7 +86,7 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     ministerial_role = WorldLocation.new
     presenter = PublishingApiPresenters.presenter_for(ministerial_role)
 
-    assert_equal PublishingApiPresenters::WorldLocation, presenter.class
+    assert_equal PublishingApi::WorldLocationPresenter, presenter.class
   end
 
   test ".presenter_for returns a MinisterialRole presenter for a ministerial role" do
@@ -100,19 +100,19 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     worldwide_organisation = WorldwideOrganisation.new
     presenter = PublishingApiPresenters.presenter_for(worldwide_organisation)
 
-    assert_equal PublishingApiPresenters::WorldwideOrganisation, presenter.class
+    assert_equal PublishingApi::WorldwideOrganisationPresenter, presenter.class
   end
 
   test ".presenter_for returns a WorkingGroup presenter for a policy group" do
     policy_group = PolicyGroup.new
     presenter = PublishingApiPresenters.presenter_for(policy_group)
 
-    assert_equal PublishingApiPresenters::WorkingGroup, presenter.class
+    assert_equal PublishingApi::WorkingGroupPresenter, presenter.class
   end
 
   test ".presenter_for returns TopicalEvent placeholder for a TopicalEvent" do
     presenter = PublishingApiPresenters.presenter_for(TopicalEvent.new)
-    assert_equal PublishingApiPresenters::TopicalEvent, presenter.class
+    assert_equal PublishingApi::TopicalEventPresenter, presenter.class
   end
 
   test ".presenter_for returns a special-case presenter for `Topic`" do

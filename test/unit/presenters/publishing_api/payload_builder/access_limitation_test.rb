@@ -1,6 +1,6 @@
 require "test_helper"
 
-module PublishingApiPresenters
+module PublishingApi
   module PayloadBuilder
     class AccessLimitationTest < ActiveSupport::TestCase
       test "returns access limitation data for the item" do

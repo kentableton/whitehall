@@ -1,5 +1,5 @@
 module PublishingApi
-  class TopicalEventAboutPage
+  class TopicalEventAboutPagePresenter
 
     attr_accessor :item
     attr_accessor :update_type

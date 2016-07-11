@@ -1,4 +1,4 @@
-module PublishingApiPresenters
+module PublishingApi
   module PayloadBuilder
     class TagDetails
       attr_reader :item

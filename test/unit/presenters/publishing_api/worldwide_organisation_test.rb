@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class PublishingApiPresenters::WorldwideOrganisationTest < ActiveSupport::TestCase
+class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCase
   def present(model_instance, options = {})
-    PublishingApiPresenters::WorldwideOrganisation.new(model_instance, options)
+    PublishingApi::WorldwideOrganisationPresenter.new(model_instance, options)
   end
 
   test 'presents a Worldwide Organisation ready for adding to the publishing API' do

@@ -1,5 +1,5 @@
 module PublishingApi
-  class WorldLocation
+  class WorldLocationPresenter
     attr_accessor :item
     attr_accessor :update_type
 

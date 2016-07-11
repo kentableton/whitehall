@@ -5,7 +5,7 @@ module PublishingApiPresenters
     test "it returns the base set of attributes needed by all documents sent to the publishing API" do
       stubbed_item = stub(need_ids: [1, 2], title: 'A title')
 
-      presenter = PublishingApiPresenters::BaseItemPresenter.new(stubbed_item, locale: "fr")
+      presenter = PublishingApi::BaseItemPresenter.new(stubbed_item, locale: "fr")
       expected_hash = {
         title: stubbed_item.title,
         locale: "fr",

@@ -1,6 +1,6 @@
 require "test_helper"
 
-module PublishingApiPresenters
+module PublishingApi
   module PayloadBuilder
     class TagDetailsTest < ActiveSupport::TestCase
       test "returns tag details for the item" do

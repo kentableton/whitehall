@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PublishingApiPresenters::WorkingGroupTest < ActiveSupport::TestCase
+class PublishingApi::WorkingGroupPresenterTest < ActiveSupport::TestCase
   test 'presents a valid "working_group" content item' do
     group = create(:policy_group,
       name: "Government Digital Service",
@@ -34,7 +34,7 @@ class PublishingApiPresenters::WorkingGroupTest < ActiveSupport::TestCase
       }
     }
 
-    presenter = PublishingApiPresenters::WorkingGroup.new(group)
+    presenter = PublishingApi::WorkingGroupPresenter.new(group)
 
     assert_equal expected_hash, presenter.content
     assert_valid_against_schema(presenter.content, 'working_group')
@@ -43,7 +43,7 @@ class PublishingApiPresenters::WorkingGroupTest < ActiveSupport::TestCase
   test "renders attachments in the body" do
     group = create(:policy_group, :with_file_attachment, description: "#Heading\n\n!@1\n\n##Subheading")
 
-    presenter = PublishingApiPresenters::WorkingGroup.new(group)
+    presenter = PublishingApi::WorkingGroupPresenter.new(group)
 
     body = Nokogiri::HTML.parse(presenter.content[:details][:body])
     assert_not_nil body.at_css("section.attachment")

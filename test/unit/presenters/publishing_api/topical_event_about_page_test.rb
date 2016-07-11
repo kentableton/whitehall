@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class PublishingApiPresenters::TopicalEventAboutPageTest < ActiveSupport::TestCase
+class PublishingApi::TopicalEventPresenterAboutPageTest < ActiveSupport::TestCase
   def present(record)
-    PublishingApiPresenters::TopicalEventAboutPage.new(record)
+    PublishingApi::TopicalEventPresenterAboutPage.new(record)
   end
 
   test "topical event about page presentation includes the correct values" do
